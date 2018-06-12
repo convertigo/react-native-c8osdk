@@ -80,8 +80,8 @@
 		B764B74320CFFA4C001668A2 /* libRCTC8oSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTC8oSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B764B74620CFFA4C001668A2 /* RCTC8oSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTC8oSDK.h; sourceTree = "<group>"; };
 		B764B74720CFFA4C001668A2 /* RCTC8oSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTC8oSDK.m; sourceTree = "<group>"; };
-		B7A79F4320CFFE38005B05F6 /* C8oSDKiOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = C8oSDKiOS.xcodeproj; path = "../../c8osdk-ios/C8oSDKiOS.xcodeproj"; sourceTree = "<group>"; };
-		B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../../c8osdk-ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
+		B7A79F4320CFFE38005B05F6 /* C8oSDKiOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = C8oSDKiOS.xcodeproj; path = "../../ios/c8osdk-ios/C8oSDKiOS.xcodeproj"; sourceTree = "<group>"; };
+		B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../../ios/c8osdk-ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
