@@ -9,6 +9,8 @@
 #import <React/RCTLog.h>
 #import <React/RCTConvert.h>
 
+@import C8o;
+
 @interface RCTC8oSDK()
 @property (nonatomic) bool isEmulator;
 @property C8o *C8o;

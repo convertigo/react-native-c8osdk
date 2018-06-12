@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
-//#import <React/RCTEventEmitter.h>
+#import <React/RCTEventEmitter.h>
 #import <React/RCTConvert.h>
 
 #if __has_include(<React/RCTAssert.h>)
