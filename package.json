@@ -1,0 +1,44 @@
+{
+  "name": "react-native-c8osdk",
+  "version": "0.1.0-beta1",
+  "description": "Use Convertigo MBaaS from React native apps",
+  "main": "src/all.js",
+  "typings": "src/all.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/convertigo/react-native-c8osdk"
+  },
+  "scripts": {
+    "shipit": "np"
+  },
+  "keywords": [
+    "react-component",
+    "react-native",
+    "ios",
+    "android",
+    "windows",
+    "device",
+    "events",
+    "cocoapod",
+    "mbaas",
+    "madp"    
+  ],
+  "author": "Charles Grimont <charlesg@convertigo.com> (https://github.com/CharlesGrimont)",
+  "contributors": [
+    {
+      "name": "Nicolas Albert",
+      "email": "nicolasa@convertigo.com",
+      "url": "https://github.com/nicolas-albert"
+    },
+    {
+      "name": "Olivier Picioto",
+      "email": "olivierp@convertigo.com",
+      "url": "https://github.com/olivierpiccioto"
+    }
+  ],
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "np": "^2.16.0",
+    "prettier": "^1.10.2"
+  }
+}
