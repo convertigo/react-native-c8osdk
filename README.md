@@ -37,12 +37,12 @@ Client SDK is available for:
 
 ## Requirements
 
-* npm | yarn
+* npm 6.x | yarn 1.7.x
 * iOS
   * Xcode 9.4
-  * Cocoapods
+  * Cocoapods 1.5.3
 * Android
-  * Android Studio
+  * Android Studio 3.1
 
 ## Installation
 
