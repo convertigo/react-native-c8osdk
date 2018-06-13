@@ -67,6 +67,8 @@ yarn add react-native-c8osdk
 react-native link react-native-c8osdk
 ```
 
+Then for each platform:
+
 <details>
     <summary>iOS (via Cocoa Pods)</summary>
 
