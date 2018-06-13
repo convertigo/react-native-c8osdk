@@ -18,7 +18,7 @@ TOC
 - [Documentation](#documentation)
     - [Import libraries](#import-libraries)
     - [Initializing and creating a C8o instance for an Endpoint](#initializing-and-creating-a-c8o-instance-for-an-endpoint)
-        - [Advanced instance settings](#advanced-instance-settings)
+    - [Advanced instance settings](#advanced-instance-settings)
     - [Calling a Convertigo requestable](#calling-a-convertigo-requestable)
     - [Call parameters](#call-parameters)
     - [Handling failures](#handling-failures)
@@ -105,7 +105,7 @@ let c8o: C8o = new C8o();
 c8o.init("http://c8o-dev.convertigo.net:80/cems/projects/ClientSDKtestig");
 ```
 
-#### Advanced instance settings
+### Advanced instance settings
 
 The endpoint is the mandatory setting to get a C8o instance, but there is additional settings through the C8oSettings class.
 
@@ -263,10 +263,10 @@ let result = await this.c8o.callJson('fs://base.replication_pull');
 Api documentation
 -----------------
 
-*   [C8o](modules/_c8o_.md)
-*   [C8oBase](modules/_c8obase_.md)
-*   [C8oLogLevel](modules/_c8ologlevel_.md)
-*   [C8oSettings](modules/_c8osettings_.md)
+*   [C8o](apidoc/modules/_c8o_.md)
+*   [C8oBase](apidoc/modules/_c8obase_.md)
+*   [C8oLogLevel](apidoc/modules/_c8ologlevel_.md)
+*   [C8oSettings](apidoc/modules/_c8osettings_.md)
 
 ---
 

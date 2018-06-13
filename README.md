@@ -18,7 +18,7 @@
 - [Documentation](#documentation)
   - [Import libraries](#import-libraries)
   - [Initializing and creating a C8o instance for an Endpoint](#initializing-and-creating-a-c8o-instance-for-an-endpoint)
-    - [Advanced instance settings](#advanced-instance-settings)
+  - [Advanced instance settings](#advanced-instance-settings)
   - [Calling a Convertigo requestable](#calling-a-convertigo-requestable)
   - [Call parameters](#call-parameters)
   - [Handling failures](#handling-failures)
@@ -137,7 +137,7 @@ let c8o: C8o = new C8o();
 c8o.init("http://c8o-dev.convertigo.net:80/cems/projects/ClientSDKtestig");
 ```
 
-#### Advanced instance settings
+### Advanced instance settings
 The endpoint is the mandatory setting to get a C8o instance, but there is additional settings through the C8oSettings class.
 
 A C8oSettings instance should be passed after the endpoint. Settings are copied inside the C8o instance.
