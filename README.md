@@ -22,6 +22,9 @@
   - [Calling a Convertigo requestable](#calling-a-convertigo-requestable)
   - [Call parameters](#call-parameters)
   - [Handling failures](#handling-failures)
+  - [Writing the device logs to the Convertigo server](#writing-the-device-logs-to-the-convertigo-server)
+  - [Using the Local Cache](#using-the-local-cache)
+  - [Using the Full Sync](#using-the-full-sync)
 - [Api documentation](#api-documentation)
 
 ## Introduction
@@ -199,6 +202,59 @@ try{
 catch(error){
   // Do somthing with the error
 }
+```
+
+### Writing the device logs to the Convertigo server
+
+* Not implemented yet
+
+### Using the Local Cache
+
+* Not implemented yet
+
+### Using the Full Sync
+Full Sync enables mobile apps to handle fully disconnected scenarios, still having data handled and controlled by back end business logic. See the presentation of the Full Sync architecture for more details.
+
+Convertigo Client SDK provides a high level access to local data following the standard Convertigo Sequence paradigm. They differ from standard sequences by a fs:// prefix. Calling these local Full Sync requestable will enable the app to read, write, query and delete data from the local database:
+
+* fs://<database>.create creates the local database if not already exist
+* fs://<database>.view queries a view from the local database
+* fs://<database>.get reads an object from the local database
+* fs://<database>.post writes/update an object to the local database
+* fs://<database>.delete deletes an object from the local database
+* fs://<database>.all gets all objects from the local database
+* fs://<database>.sync synchronizes with server database
+* fs://<database>.replicate_push pushes local modifications on the database server
+* fs://<database>.replicate_pull gets all database server modifications
+* fs://<database>.reset resets a database by removing all the data in it
+* fs://<database>.put_attachment Puts (add) an attachment to a document in the database
+* fs://<database>.get_attachment Gets an attachment from a document
+
+Where fs://<database> is the name of a specific FullSync Connector in the project specified in the endpoint. The fs://<database> name is optional only if the default database name is specified with the method setDefaultDatabaseName on the C8oSetting.
+
+An application can have many databases. On mobile (Android, iOS and Xamarin based) they are stored in the secure storage of the application. On Windows desktop application, they are stored in the user AppData/Local folder, without application isolation.
+
+All platforms can specify a local database prefix that allows many local database copies of the same remote database. Use the method setFullSyncLocalSuffix on the C8oSetting.
+
+```javascript
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
+
+// clear or create the "base" database
+// resultReset mustbe equal to { "ok" : true }
+let resultReset = await this.c8o.callJson('fs://base.reset');
+
+// creates a new document on "base", with 2 key/value pairs
+// resultPost mustbe equal to { "ok": true, "id": "6f1b52df","rev":  "1-b0620371" }
+let resultPost = await this.c8o.callJson('fs://base.post', {
+              firstname: "Jhonn",
+              lastname: "Doe"
+          });
+// retrieves the complet document from its "docid"
+// resultGet mustbe equal to { "lastname": "Doe", "rev": "1-b0620371", "firstname": "John", "_id": "6f1b52df" }
+let resultGet = await this.c8o.callJson('fs://base.get', {
+              docid: resultPost['id']
+          });
+
 ```
 
 ## Api documentation
