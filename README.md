@@ -1,8 +1,12 @@
-<div style="text-align: center;"><img src="https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png">
-<h2> React Native C8oSDK</h2>
-<a href="/LICENSE"><img src="https://img.shields.io/npm/l/react-native-c8osdk.svg?style=flat-square" alt="License"></a>
-<a href="https://www.npmjs.com/package/react-native-c8osdk"><img src="https://img.shields.io/npm/v/react-native-c8osdk.svg?style=flat-square" alt="NPM version"></a>
-</div>
+<p align="center">
+  <img src="https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png">
+  <h2 align="center"> React Native C8oSDK</h2>
+</p>
+<p align="center">
+  <a href="/LICENSE"><img src="https://img.shields.io/npm/l/react-native-c8osdk.svg?style=flat-square" alt="License"></a>
+  <a href="https://www.npmjs.com/package/react-native-c8osdk"><img src="https://img.shields.io/npm/v/react-native-c8osdk.svg?style=flat-square" alt="NPM version"></a>
+</p>
+
 
 ## TOC
 
