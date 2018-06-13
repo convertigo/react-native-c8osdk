@@ -115,7 +115,7 @@ See [Convertigo SDK](https://www.convertigo.com/document/all/cmp-7/7-5-1/referen
 
 ### External modules
 
-* ["c8o"](apidoc/modules/_c8o_.md)
+* ["c8o"](apidoc/index.html)
 * ["c8oBase"](modules/_c8obase_.md)
 * ["c8oLogLevel"](modules/_c8ologlevel_.md)
 * ["c8oSettings"](modules/_c8osettings_.md)

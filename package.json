@@ -10,7 +10,7 @@
   },
   "scripts": {
     "shipit": "np",
-    "docs": "typedoc --theme markdown --mdEngine github --module 'commonjs' --target 'ES5' --out ./apidoc/ ./src/"
+    "docs": "typedoc --theme 'default' --module 'commonjs' --target 'ES5' --out ./apidoc/ ./src/"
   },
   "keywords": [
     "react-component",
