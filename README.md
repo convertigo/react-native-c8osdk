@@ -25,6 +25,8 @@
   - [Writing the device logs to the Convertigo server](#writing-the-device-logs-to-the-convertigo-server)
   - [Using the Local Cache](#using-the-local-cache)
   - [Using the Full Sync](#using-the-full-sync)
+  - [Replicating Full Sync databases](#replicating-full-sync-databases)
+  - [Full Sync FS_LIVE requests](#full-sync-fs-live-requests)
 - [Api documentation](#api-documentation)
 
 ## Introduction
@@ -249,13 +251,36 @@ let resultPost = await this.c8o.callJson('fs://base.post', {
               firstname: "Jhonn",
               lastname: "Doe"
           });
+
 // retrieves the complet document from its "docid"
 // resultGet mustbe equal to { "lastname": "Doe", "rev": "1-b0620371", "firstname": "John", "_id": "6f1b52df" }
 let resultGet = await this.c8o.callJson('fs://base.get', {
               docid: resultPost['id']
           });
-
 ```
+
+
+### Replicating Full Sync databases
+FullSync has the ability to replicate mobile and Convertigo server databases over unreliable connections still preserving integrity. Data can be replicated in upload or download or both directions. The replication can also be continuous: a new document is instantaneously replicated to the other side.
+
+The client SDK offers the progress event to monitor the replication progression thanks to a C8oProgress instance.
+
+```javascript
+// Using the Native Event Emitter to fetch progress events
+const { RCTC8oSDK } = NativeModules;
+const C8oManagerEmitter = new NativeEventEmitter(RCTC8oSDK);
+const subscription = C8oManagerEmitter.addListener(
+    'progress',
+    (progress)=>{
+      console.log(JSON.stringify(progress)
+    });
+
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
+let result = await this.c8o.callJson('fs://base.replication_pull');
+```
+
+### Full Sync FS_LIVE requests
+* Not implemented yet
 
 ## Api documentation
 * [C8o](apidoc/modules/_c8o_.md)
