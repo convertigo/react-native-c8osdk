@@ -37,7 +37,8 @@ Client SDK is available for:
 
 ## Requirements
 
-* npm 6.x | yarn 1.7.x
+* npm 6.1.x | yarn 1.7.x
+* react-native cli 2.0.x
 * iOS
   * Xcode 9.4
   * Cocoapods 1.5.3
