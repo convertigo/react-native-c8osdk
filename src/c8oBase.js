@@ -16,6 +16,7 @@ var C8oBase = (function () {
         this._useEncryption = false;
         this._disableSSL = false;
         this._headers = {};
+        this._trustAllCertificates = false;
     }
     Object.defineProperty(C8oBase.prototype, "timeout", {
         get: function () {
@@ -62,6 +63,13 @@ var C8oBase = (function () {
     Object.defineProperty(C8oBase.prototype, "authenticationCookieValue", {
         get: function () {
             return this._authenticationCookieValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(C8oBase.prototype, "trustAllCertificates", {
+        get: function () {
+            return this._trustAllCertificates;
         },
         enumerable: true,
         configurable: true
@@ -136,6 +144,7 @@ var C8oBase = (function () {
             this._fullSyncUsername = c8oBase.fullSyncUsername;
             this._fullSyncPassword = c8oBase.fullSyncPassword;
             this._headers = c8oBase._headers;
+            this._trustAllCertificates = c8oBase._trustAllCertificates;
         }
     };
     return C8oBase;

@@ -10,15 +10,13 @@
 
 ## TOC
 
-* [Introduction](#introduction)
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Linking](#linking)
-* [Usage](#usage)
-* [API](#api)
-* [Troubleshooting](#troubleshooting)
-* [Release Notes](#release-notes)
-* [react-native-web](#react-native-web)
+- [TOC](#toc)
+- [Introduction](#introduction)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Linking](#linking)
+- [Usage](#usage)
+  - [External modules](#external-modules)
 
 ## Introduction
 This is the Convertigo provider for React Native
@@ -115,3 +113,9 @@ There is nothing more than the react-native cli link, mentioned above, to do for
 
 See [Convertigo SDK](https://www.convertigo.com/document/all/cmp-7/7-5-1/reference-manual/convertigo-mbaas-server/convertigo-client-sdk/)
 
+### External modules
+
+* ["c8o"](apidoc/modules/_c8o_.md)
+* ["c8oBase"](modules/_c8obase_.md)
+* ["c8oLogLevel"](modules/_c8ologlevel_.md)
+* ["c8oSettings"](modules/_c8osettings_.md)

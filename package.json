@@ -9,7 +9,8 @@
     "url": "https://github.com/convertigo/react-native-c8osdk"
   },
   "scripts": {
-    "shipit": "np"
+    "shipit": "np",
+    "docs": "typedoc --theme markdown --mdEngine github --module 'commonjs' --target 'ES5' --out ./apidoc/ ./src/"
   },
   "keywords": [
     "react-component",
@@ -21,7 +22,7 @@
     "events",
     "cocoapod",
     "mbaas",
-    "madp"    
+    "madp"
   ],
   "author": "Charles Grimont <charlesg@convertigo.com> (https://github.com/CharlesGrimont)",
   "contributors": [
@@ -39,6 +40,8 @@
   "license": "Apache 2.0",
   "devDependencies": {
     "np": "^2.16.0",
-    "prettier": "^1.10.2"
+    "prettier": "^1.10.2",
+    "typedoc": "^0.11.1",
+    "typedoc-plugin-markdown": "^1.1.13"
   }
 }

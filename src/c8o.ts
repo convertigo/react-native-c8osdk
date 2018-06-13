@@ -1,7 +1,7 @@
 //import {C8oSettings} from "./c8oSettings";
 //import { Platform, NativeModules } from "react-native";
 
-import {C8oSettings} from "c8osdkjscore/src/c8o/c8oSettings";
+import {C8oSettings} from "./c8oSettings";
 
 var C8oR;// = NativeModules.C8oReact;
 
