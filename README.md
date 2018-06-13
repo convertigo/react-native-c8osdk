@@ -11,6 +11,7 @@
 ## TOC
 
 * [Introduction](#introduction)
+* [Requirements](#requirements)
 * [Installation](#installation)
 * [Linking](#linking)
 * [Usage](#usage)
@@ -34,7 +35,14 @@ Client SDK is available for:
 * [Vue.js](https://github.com/convertigo/c8osdk-vuejs), [ReactJS](https://github.com/convertigo/c8osdk-vuejs), [AngularJS](https://github.com/convertigo/c8osdk-vuejs) Framework as a standard Javascript NPM package
 * Windows desktop or Xamarin apps as Nugets or Xamarin Components
 
+## Requirements
 
+* npm | yarn
+* iOS
+  * Xcode 9.4
+  * Cocoapods
+* Android
+  * Android Studio
 
 ## Installation
 
