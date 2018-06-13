@@ -3,8 +3,8 @@
   <h2 align="center"> React Native C8oSDK</h2>
 </p>
 <p align="center">
-  <a href="/LICENSE"><img src="https://img.shields.io/npm/l/react-native-c8osdk.svg?style=flat-square" alt="License"></a>
-  <a href="https://www.npmjs.com/package/react-native-c8osdk"><img src="https://img.shields.io/npm/v/react-native-c8osdk.svg?style=flat-square" alt="NPM version"></a>
+  <a href="/LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
+  <a href="https://www.npmjs.com/package/react-native-c8osdk"><img src="https://badge.fury.io/js/react-native-c8osdk.svg?style=flat-square" alt="NPM version"></a>
 </p>
 
 
