@@ -267,12 +267,8 @@ The client SDK offers the progress event to monitor the replication progression 
 
 ```javascript
 // Using the Native Event Emitter to fetch progress events
-const { C8oReact } = NativeModules;
-const C8oManagerEmitter = new NativeEventEmitter(C8oReact);
-const subscription = C8oManagerEmitter.addListener(
-    'progress',
-    (progress)=>{
-      console.log(JSON.stringify(progress));
+this.c8o.progress.notifications((progress)=>{
+        // Do stuff with the progress notifications
     });
 
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
