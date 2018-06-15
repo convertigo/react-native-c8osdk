@@ -93,7 +93,7 @@ Add the following dependencies to your the target of your `Podfile`
 Also append the following posinstall script to your `Podfile`
 ```shell
 post_install do |installer|
-  # List of Pods to use as Swift 3.2
+  # List of Pods to use as Swift 4.1
   myTargets = ['SwiftyJSON', 'Alamofire', 'AEXML']
 
   installer.pods_project.targets.each do |target|
