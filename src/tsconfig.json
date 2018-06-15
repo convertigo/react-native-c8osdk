@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "sourceMap": true,
+    "noImplicitAny": false
+  },
+  "compileOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  },
+  "files" :[
+    "all.ts",
+    "c8o.ts",
+    "c8oLogLevel.ts",
+    "c8oSettings.ts",
+    "c8oBase.ts",
+    "c8oPromise.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts",
+    "bundles"
+  ]
+}

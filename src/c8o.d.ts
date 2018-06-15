@@ -1,7 +1,9 @@
-// should be imported this way:
-// import * as c8o from 'react-native-c8o-sdk';
-export declare class C8o{
+import { C8oSettings } from "./c8oSettings";
+import { C8oPromise } from "./c8oPromise";
+export declare class C8o {
+    private _c8oManagerEmitter;
+    progress: C8oPromise<any>;
     constructor();
-    callJson(requestable : string, parameters: any): Promise<Object>;
-    init(endpoint : string, settings: any): Promise<Object>;
+    init(endpoint: string, c8oSettings?: C8oSettings): Promise<any>;
+    callJson(requestable: string, parameters: any): Promise<any>;
 }

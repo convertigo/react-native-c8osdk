@@ -59,44 +59,7 @@ export class C8oSettings extends C8oBase {
         this._headers[name] = value;
         return this;
     }
-
-    /**
-     * addClientCertificate
-     * @param {string} anyCertificate
-     * @param {string} password
-     * @return {C8oSettings}
-     */
-    public addClientCertificate(anyCertificate: string, password: string): C8oSettings;
-
-    /**
-     * addClientCertificate
-     * @param {number} anyCertificate
-     * @param {string} password
-     * @return {C8oSettings}
-     */
-    public addClientCertificate(anyCertificate: number, password: string): C8oSettings;
-
-    /**
-     * addClientCertificate
-     * @param anyCertificate
-     * @param {string} password
-     * @return {C8oSettings}
-     */
-    public addClientCertificate(anyCertificate: any, password: string): C8oSettings {
-        if (typeof anyCertificate === "string") {
-            if (this._clientCertificateFiles == null) {
-                this._clientCertificateFiles = {};
-            }
-            this._clientCertificateFiles[anyCertificate] = password;
-        } else if (typeof anyCertificate === "number") {
-            if (this._clientCertificateBinaries == null) {
-                this._clientCertificateBinaries = {};
-            }
-            this._clientCertificateBinaries[anyCertificate] = password;
-        }
-        return this;
-    }
-
+    
     /**
      * Add a new cookie to the initial cookies send to the Convertigo server.
      * @param name The name of the new cookie.

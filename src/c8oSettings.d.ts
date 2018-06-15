@@ -6,8 +6,6 @@ export declare class C8oSettings extends C8oBase {
     setEndPoint(endpoint: string): C8oSettings;
     setTimeout(timeout: number): C8oSettings;
     addHeader(name: string, value: string): this;
-    addClientCertificate(anyCertificate: string, password: string): C8oSettings;
-    addClientCertificate(anyCertificate: number, password: string): C8oSettings;
     addCookie(name: string, value: string): C8oSettings;
     setLogRemote(logRemote: boolean): C8oSettings;
     setLogLevelLocal(logLevelLocal: C8oLogLevel): C8oSettings;

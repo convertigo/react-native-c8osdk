@@ -2,6 +2,7 @@ import { C8oLogLevel } from "./c8oLogLevel";
 export declare class C8oBase {
     protected _endpointSettings: string;
     protected _timeout: number;
+    protected _trustAllCertificates: boolean;
     protected _cookies: Object;
     protected _clientCertificateFiles: Object;
     protected _clientCertificateBinaries: Object;
@@ -22,6 +23,7 @@ export declare class C8oBase {
     protected _trustStorePassword: string;
     protected _headers: Object;
     readonly timeout: number;
+    readonly trustAllCertificates: boolean;
     readonly cookies: Object;
     readonly logRemote: boolean;
     readonly logLevelLocal: C8oLogLevel;

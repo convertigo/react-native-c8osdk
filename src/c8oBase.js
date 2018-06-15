@@ -4,6 +4,7 @@ var c8oLogLevel_1 = require("./c8oLogLevel");
 var C8oBase = (function () {
     function C8oBase() {
         this._timeout = -1;
+        this._trustAllCertificates = false;
         this._cookies = {};
         this._logRemote = true;
         this._initialLogRemote = true;
@@ -16,11 +17,17 @@ var C8oBase = (function () {
         this._useEncryption = false;
         this._disableSSL = false;
         this._headers = {};
-        this._trustAllCertificates = false;
     }
     Object.defineProperty(C8oBase.prototype, "timeout", {
         get: function () {
             return this._timeout;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(C8oBase.prototype, "trustAllCertificates", {
+        get: function () {
+            return this._trustAllCertificates;
         },
         enumerable: true,
         configurable: true
@@ -63,13 +70,6 @@ var C8oBase = (function () {
     Object.defineProperty(C8oBase.prototype, "authenticationCookieValue", {
         get: function () {
             return this._authenticationCookieValue;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "trustAllCertificates", {
-        get: function () {
-            return this._trustAllCertificates;
         },
         enumerable: true,
         configurable: true
@@ -126,6 +126,7 @@ var C8oBase = (function () {
     C8oBase.prototype.copy = function (c8oBase) {
         if (c8oBase !== undefined) {
             this._timeout = c8oBase._timeout;
+            this._trustAllCertificates = c8oBase._trustAllCertificates;
             if (this.cookies == null) {
                 this._cookies = {};
             }
@@ -144,7 +145,6 @@ var C8oBase = (function () {
             this._fullSyncUsername = c8oBase.fullSyncUsername;
             this._fullSyncPassword = c8oBase.fullSyncPassword;
             this._headers = c8oBase._headers;
-            this._trustAllCertificates = c8oBase._trustAllCertificates;
         }
     };
     return C8oBase;

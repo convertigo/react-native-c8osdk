@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class C8oReactPackage implements ReactPackage {
+public class RCTC8oSDKPackage implements ReactPackage {
 
   public List<Class<? extends JavaScriptModule>> createJSModules() {
     return Collections.emptyList();
@@ -24,7 +24,7 @@ public class C8oReactPackage implements ReactPackage {
                               ReactApplicationContext reactContext) {
     List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new C8oReact(reactContext));
+    modules.add(new RCTC8oSDK(reactContext));
 
     return modules;
   }

@@ -37,27 +37,8 @@ var C8oSettings = (function (_super) {
         this._timeout = timeout;
         return this;
     };
-    C8oSettings.prototype.setTrustAllCertificates = function (trustAllCertificates) {
-        this._trustAllCertificates = trustAllCertificates;
-        return this;
-    };
     C8oSettings.prototype.addHeader = function (name, value) {
         this._headers[name] = value;
-        return this;
-    };
-    C8oSettings.prototype.addClientCertificate = function (anyCertificate, password) {
-        if (typeof anyCertificate === "string") {
-            if (this._clientCertificateFiles == null) {
-                this._clientCertificateFiles = {};
-            }
-            this._clientCertificateFiles[anyCertificate] = password;
-        }
-        else if (typeof anyCertificate === "number") {
-            if (this._clientCertificateBinaries == null) {
-                this._clientCertificateBinaries = {};
-            }
-            this._clientCertificateBinaries[anyCertificate] = password;
-        }
         return this;
     };
     C8oSettings.prototype.addCookie = function (name, value) {
@@ -109,6 +90,10 @@ var C8oSettings = (function (_super) {
     };
     C8oSettings.prototype.setUseEncryption = function (useEncryption) {
         this._useEncryption = useEncryption;
+        return this;
+    };
+    C8oSettings.prototype.setTrustAllCertificates = function (trustAllCertificates) {
+        this._trustAllCertificates = trustAllCertificates;
         return this;
     };
     return C8oSettings;
