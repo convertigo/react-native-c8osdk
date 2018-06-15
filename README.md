@@ -52,7 +52,7 @@ Client SDK is available for:
   * Xcode 9.4
   * Cocoapods 1.5.3
 * Android
-  * Android Studio 3.1
+  * Android Studio 3.1.x
 
 ## Installation
 
