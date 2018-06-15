@@ -1,58 +1,17 @@
 {
-  "_from": "react-native-c8osdk@0.1.0-beta6",
-  "_id": "react-native-c8osdk@0.1.0-beta6",
-  "_inBundle": false,
-  "_integrity": "sha512-M0FRtj7be1VkQGJVZPNSzZ/Cf/mdDpHJhNo3iOCyUbehhpc0a9JElBgBIAZlVhy4RFUeAKlOz5r7R3/yXSXTnw==",
-  "_location": "/react-native-c8osdk",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "react-native-c8osdk@0.1.0-beta6",
-    "name": "react-native-c8osdk",
-    "escapedName": "react-native-c8osdk",
-    "rawSpec": "0.1.0-beta6",
-    "saveSpec": null,
-    "fetchSpec": "0.1.0-beta6"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/react-native-c8osdk/-/react-native-c8osdk-0.1.0-beta6.tgz",
-  "_shasum": "0b81b9e426b3bd98adb9c8c620db14b1dcbd3ddc",
-  "_spec": "react-native-c8osdk@0.1.0-beta6",
-  "_where": "/home/charlesg/convertigo/src/react/Proj",
-  "author": {
-    "name": "Charles Grimont",
-    "email": "charlesg@convertigo.com",
-    "url": "https://github.com/CharlesGrimont"
-  },
-  "bugs": {
-    "url": "https://github.com/convertigo/react-native-c8osdk/issues"
-  },
-  "bundleDependencies": false,
-  "contributors": [
-    {
-      "name": "Nicolas Albert",
-      "email": "nicolasa@convertigo.com",
-      "url": "https://github.com/nicolas-albert"
-    },
-    {
-      "name": "Olivier Picioto",
-      "email": "olivierp@convertigo.com",
-      "url": "https://github.com/olivierpiccioto"
-    }
-  ],
-  "deprecated": false,
+  "name": "react-native-c8osdk",
+  "version": "0.1.0-beta6",
   "description": "Use Convertigo MBaaS from React native apps",
-  "devDependencies": {
-    "np": "^2.16.0",
-    "prettier": "^1.10.2",
-    "typedoc": "^0.11.1",
-    "typedoc-plugin-markdown": "^1.1.13"
+  "main": "src/all.js",
+  "typings": "src/all.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/convertigo/react-native-c8osdk"
   },
-  "homepage": "https://github.com/convertigo/react-native-c8osdk#readme",
+  "scripts": {
+    "shipit": "np",
+    "docs": "typedoc --theme markdown --mdEngine github --mdHideSources --module 'commonjs' --target 'ES5' --out ./apidoc/ ./src/"
+  },
   "keywords": [
     "react-component",
     "react-native",
@@ -65,17 +24,24 @@
     "mbaas",
     "madp"
   ],
+  "author": "Charles Grimont <charlesg@convertigo.com> (https://github.com/CharlesGrimont)",
+  "contributors": [
+    {
+      "name": "Nicolas Albert",
+      "email": "nicolasa@convertigo.com",
+      "url": "https://github.com/nicolas-albert"
+    },
+    {
+      "name": "Olivier Picioto",
+      "email": "olivierp@convertigo.com",
+      "url": "https://github.com/olivierpiccioto"
+    }
+  ],
   "license": "Apache 2.0",
-  "main": "src/all.js",
-  "name": "react-native-c8osdk",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/convertigo/react-native-c8osdk.git"
-  },
-  "scripts": {
-    "docs": "typedoc --theme markdown --mdEngine github --mdHideSources --module 'commonjs' --target 'ES5' --out ./apidoc/ ./src/",
-    "shipit": "np"
-  },
-  "typings": "src/all.d.ts",
-  "version": "0.1.0-beta6"
+  "devDependencies": {
+    "np": "^2.16.0",
+    "prettier": "^1.10.2",
+    "typedoc": "^0.11.1",
+    "typedoc-plugin-markdown": "^1.1.13"
+  }
 }
