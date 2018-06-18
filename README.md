@@ -124,16 +124,16 @@ There is nothing more than the react-native cli link, mentioned above, to do for
 
 ### Import libraries
 ```javascript
-import {C8oSettings, C8o, C8oLogLevel} from "react-native-c8o-sdk";
+import {C8oSettings, C8o, C8oLogLevel} from "react-native-c8osdk";
 ```
 
 ### Initializing and creating a C8o instance for an Endpoint
-C8o Obejct must first be instanciated and then can be initialized, with a endpoint string parameter
+C8o Object must first be instanciated and then can be initialized, with a endpoint string parameter
 ```javascript
 // Instanciate C8o
 let c8o: C8o = new C8o();
 
-// Init C8o instance with a given endpoint
+// Init C8o instance with a given endpoint, for example:
 c8o.init("http://c8o-dev.convertigo.net:80/cems/projects/ClientSDKtestig");
 ```
 
