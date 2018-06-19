@@ -45,13 +45,13 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
   @ReactMethod
   public void init(final String endPoint, final ReadableMap JsSettings, Promise promise) throws JSONException {
       C8oSettings settings = new C8oSettings();
-      if(JsSettings.toHashMap().get("_timeout") != null){
+      if(JsSettings.toHashMap().get("_timeout") != null && (int)Math.round((Double)JsSettings.toHashMap().get("_timeout")) != -1){
         settings.setTimeout((int)Math.round((Double)JsSettings.toHashMap().get("_timeout")));
       }
       if(JsSettings.toHashMap().get("_trustAllCertificates") != null){
         settings.setTrustAllCertificates((boolean)JsSettings.toHashMap().get("_trustAllCertificates"));
       }
-      if(JsSettings.toHashMap().get("_cookies") != null){
+      if(((HashMap)JsSettings.toHashMap().get("_cookies")).size() > 0){
           Object key = ((HashMap)JsSettings.toHashMap().get("_cookies")).keySet().toArray()[0];
           Object value = ((HashMap)JsSettings.toHashMap().get("_cookies")).values().toArray()[0];
           settings.addCookie(key.toString(), value.toString());
@@ -142,4 +142,34 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
               }
           });
   }
+    @ReactMethod
+    public void log(String message, Integer type, final Promise promise) throws JSONException {
+      switch (type){
+          case 0:
+              this.c8o.log.fatal(message);
+              promise.resolve(true);
+              break;
+          case 1:
+              this.c8o.log.error(message);
+              promise.resolve(true);
+              break;
+          case 2:
+              this.c8o.log.warn(message);
+              promise.resolve(true);
+              break;
+          case 3:
+              this.c8o.log.info(message);
+              promise.resolve(true);
+              break;
+          case 4:
+              this.c8o.log.debug(message);
+              promise.resolve(true);
+              break;
+          case 5:
+              this.c8o.log.trace(message);
+              promise.resolve(true);
+              break;
+      }
+
+    }
 }
