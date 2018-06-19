@@ -208,7 +208,28 @@ catch(error){
 
 ### Writing the device logs to the Convertigo server
 
-* Not implemented yet
+An application developer usually adds log information in his code. This is useful for the code execution tracking, statistics or debugging.
+
+The Convertigo Client SDK offers an API to easily log on the standard device logger, generally in a dedicated console. To see this console, a device must be physically connected on a computer.
+
+Fortunately, the same API also send log to the Convertigo server and they are merged with the server log. You can easily debug your device and server code on the same screen, on the same timeline. Logs from a device contain metadata, such as the device UUID and can help to filter logs on the server.
+
+A log level must be specified:
+
+Fatal: used for critical error message
+Error: used for common error message
+Warn: used for not expected case
+Info: used for high level messages
+Debug: used for help the developer to understand the execution
+Trace: used for help the developer to trace the code
+To write a log string, use the C8oLogger instance of a C8o instance:
+
+```javascript
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above
+
+this.c8o.log.debug("hello logs !");
+
+```
 
 ### Using the Local Cache
 
@@ -279,7 +300,9 @@ let result = await this.c8o.callJson('fs://base.replication_pull');
 * Not implemented yet
 
 ## Api documentation
-* [C8o](apidoc/modules/_c8o_.md)
-* [C8oBase](apidoc/modules/_c8obase_.md)
-* [C8oLogLevel](apidoc/modules/_c8ologlevel_.md)
-* [C8oSettings](apidoc/modules/_c8osettings_.md)
+* ["c8o"](apidoc/modules/_c8o_.md)
+* ["c8oBase"](apidoc/modules/_c8obase_.md)
+* ["c8oLogLevel"](apidoc/modules/_c8ologlevel_.md)
+* ["c8oLogger"](apidoc/modules/_c8ologger_.md)
+* ["c8oPromise"](apidoc/modules/_c8opromise_.md)
+* ["c8oSettings"](apidoc/modules/_c8osettings_.md)

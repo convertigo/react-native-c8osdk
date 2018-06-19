@@ -63,7 +63,6 @@ new C8oSettings().setTimeout(5000).setTrustAllCertificates(true).setUseEncryptio
 
 ### Methods
 
-* [addClientCertificate](_c8osettings_.c8osettings.md#addclientcertificate)
 * [addCookie](_c8osettings_.c8osettings.md#addcookie)
 * [addHeader](_c8osettings_.c8osettings.md#addheader)
 * [clone](_c8osettings_.c8osettings.md#clone)
@@ -434,37 +433,6 @@ ___
 
 ## Methods
 
-<a id="addclientcertificate"></a>
-
-###  addClientCertificate
-
-▸ **addClientCertificate**(anyCertificate: *`string`*, password: *`string`*): [C8oSettings](_c8osettings_.c8osettings.md)
-
-▸ **addClientCertificate**(anyCertificate: *`number`*, password: *`string`*): [C8oSettings](_c8osettings_.c8osettings.md)
-
-addClientCertificate
-
-**Parameters:**
-
-| Param | Type | Description |
-| ------ | ------ | ------ |
-| anyCertificate | `string` |  - |
-| password | `string` |  - |
-
-**Returns:** [C8oSettings](_c8osettings_.c8osettings.md)
-
-addClientCertificate
-
-**Parameters:**
-
-| Param | Type | Description |
-| ------ | ------ | ------ |
-| anyCertificate | `number` |  - |
-| password | `string` |  - |
-
-**Returns:** [C8oSettings](_c8osettings_.c8osettings.md)
-
-___
 <a id="addcookie"></a>
 
 ###  addCookie

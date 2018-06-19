@@ -11,6 +11,7 @@
 ### Variables
 
 * [C8oR](_c8o_.md#c8or)
+* [C8oReact](_c8o_.md#c8oreact)
 
 ---
 
@@ -20,7 +21,14 @@
 
 ###  C8oR
 
-**● C8oR**: *`any`*
+**● C8oR**: *`any`* =  NativeModules.C8oReact
+
+___
+<a id="c8oreact"></a>
+
+###  C8oReact
+
+**● C8oReact**: *`any`*
 
 ___
 
