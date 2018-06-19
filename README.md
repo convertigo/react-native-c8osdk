@@ -216,18 +216,23 @@ Fortunately, the same API also send log to the Convertigo server and they are me
 
 A log level must be specified:
 
-Fatal: used for critical error message
-Error: used for common error message
-Warn: used for not expected case
-Info: used for high level messages
-Debug: used for help the developer to understand the execution
-Trace: used for help the developer to trace the code
-To write a log string, use the C8oLogger instance of a C8o instance:
+* Fatal: used for critical error message
+* Error: used for common error message
+* Warn: used for not expected case
+* Info: used for high level messages
+* Debug: used for help the developer to understand the execution
+* Trace: used for help the developer to trace the code
+* To write a log string, use the C8oLogger instance of a C8o instance:
 
 ```javascript
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above
 
-this.c8o.log.debug("hello logs !");
+this.c8o.log.fatal("hello logs ! (level fatal)");
+this.c8o.log.error("hello logs ! (level error)");
+this.c8o.log.warn("hello logs ! (level warn)");
+this.c8o.log.info("hello logs ! (level info)");
+this.c8o.log.debug("hello logs ! (level debug)");
+this.c8o.log.trace("hello logs ! (level trace)");
 
 ```
 
