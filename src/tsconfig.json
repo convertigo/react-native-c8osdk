@@ -25,7 +25,8 @@
     "c8oLogLevel.ts",
     "c8oSettings.ts",
     "c8oBase.ts",
-    "c8oPromise.ts"
+    "c8oPromise.ts",
+    "c8oLogger.ts"
   ],
   "exclude": [
     "node_modules",

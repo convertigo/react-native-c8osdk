@@ -61,11 +61,10 @@ RCT_REMAP_METHOD(init,
     if(dict[@"_trustAllCertificates"] != nil){
         _C8oSettings = [_C8oSettings setTrustAllCertificates:[NSNumber numberWithBool:dict[@"_trustAllCertificates"]]];
     }
-    if(dict[@"_addClientCertificate"] != nil){
-        _C8oSettings = [_C8oSettings addClientCertificate:dict[@"_addClientCertificate"][0] password:dict[@"_addClientCertificate"][1]];
-    }
-    if(dict[@"_addCookie"] != nil){
-        _C8oSettings = [_C8oSettings addCookie:dict[@"_addCookie"][0] value:dict[@"_addCookie"][1]];
+    if([dict[@"_cookies"] count] > 0){
+        id key = [[dict[@"_cookies"] allKeys] objectAtIndex:0];
+        id value = [dict[@"_cookies"] objectForKey:key];
+        _C8oSettings = [_C8oSettings addCookie:key value:value];
     }
     if(dict[@"_logRemote"] != nil){
         _C8oSettings = [_C8oSettings setLogRemote:dict[@"_logRemote"]];
@@ -115,16 +114,10 @@ RCT_REMAP_METHOD(init,
     if(![dict[@"_fullSyncLocalSuffix"] isEqual:[NSNull null]]){
         _C8oSettings = [_C8oSettings setFullSyncLocalSuffix:dict[@"_fullSyncLocalSuffix"]];
     }
-    if(dict[@"_fullSyncStorageEngine"] != nil){
-        _C8oSettings = [_C8oSettings setFullSyncStorageEngine:dict[@"_fullSyncStorageEngine"]];
-    }
-    if(dict[@"_fullSyncEncryptionKey"] != nil){
-        _C8oSettings = [_C8oSettings setFullSyncEncryptionKey:dict[@"_fullSyncEncryptionKey"]];
-    }
     if(dict[@"_useEncryption"] != nil){
         _C8oSettings = [_C8oSettings setUseEncryption:[NSNumber numberWithBool:dict[@"_useEncryption"]]];
     }
-    if(dict[@"_defaultDatabaseName"] != nil){
+    if(dict[@"_defaultDatabaseName"] != [NSNull null]){
         _C8oSettings = [_C8oSettings setDefaultDatabaseName:dict[@"_defaultDatabaseName"]];
     }
     if(dict[@"_logC8o"] != nil){
@@ -133,6 +126,14 @@ RCT_REMAP_METHOD(init,
     if(![dict[@"_authenticationCookieValue"] isEqual:[NSNull null]]){
         _C8oSettings = [_C8oSettings setAuthenticationCookieValue:dict[@"_authenticationCookieValue"]];
     }
+    /*
+     if(dict[@"_fullSyncStorageEngine"] != nil){
+     _C8oSettings = [_C8oSettings setFullSyncStorageEngine:dict[@"_fullSyncStorageEngine"]];
+     }
+     if(dict[@"_fullSyncEncryptionKey"] != nil){
+     _C8oSettings = [_C8oSettings setFullSyncEncryptionKey:dict[@"_fullSyncEncryptionKey"]];
+     }
+     */
     
     // Aloc and init C8o
     _C8o = [C8o alloc];
@@ -171,6 +172,42 @@ RCT_REMAP_METHOD(callJson,
     [_C8o call:requestable parameters:parameters c8oResponseListener:_Resp c8oExceptionListener:_Exep];
     
     
+}
+
+// Method log
+RCT_REMAP_METHOD(log,
+                message:(NSString *)message
+                type:(nonnull NSNumber *)type
+                resolver:(RCTPromiseResolveBlock)resolve
+                rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSInteger intv = [type integerValue];
+    switch(intv){
+        case 0:
+            //fatal
+            [[_C8o log]fatal:message exceptions:nil];
+            break;
+        case 1:
+            //error
+            [[_C8o log]error:message exceptions:nil];
+            break;
+        case 2:
+            //warn
+            [[_C8o log]warn:message exceptions:nil];
+            break;
+        case 3:
+            //info
+            [[_C8o log]info:message exceptions:nil];
+            break;
+        case 4:
+            //debug
+            [[_C8o log]debug:message exceptions:nil];
+            break;
+        case 5:
+            //trace
+            [[_C8o log]trace:message exceptions:nil];
+            break;
+    }
 }
 
 - (void)sendEvent:(C8oProgress *)notification

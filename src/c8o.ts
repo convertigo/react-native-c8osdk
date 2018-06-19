@@ -1,6 +1,7 @@
 import {C8oSettings} from "./c8oSettings";
 import {C8oPromise} from "./c8oPromise";
 import { Platform, NativeModules, NativeEventEmitter } from "react-native";
+import { C8oLogger } from "./c8oLogger";
 
 var C8oR = NativeModules.C8oReact;
 const { C8oReact } = NativeModules;
@@ -13,13 +14,20 @@ const { C8oReact } = NativeModules;
  */
 export class C8o {
     private _c8oManagerEmitter = new NativeEventEmitter(C8oReact);
-    public progress: C8oPromise<any> = new C8oPromise<any>(this);
-    constructor() {}
+    public log: C8oLogger;
+    public progress: C8oPromise<any>;
+    
+    constructor() {
+        this.log = new C8oLogger();
+        this.progress =  new C8oPromise<any>(this);
+    }
 
     /**
      * This method allow you to init your C8o Object, passing it an endpoint and a C8oSettings object
      * @param endpoint string The endpoint
      * @param c8oSettings C8oSettings, the settings for this c8o Object
+     * 
+     * @returns Promise<any>
      */
     public init(endpoint: string, c8oSettings?: C8oSettings): Promise<any> {
         this._c8oManagerEmitter.addListener('progress',(progressI)=> {
@@ -33,7 +41,7 @@ export class C8o {
      *
      * @param requestable - Contains the Convertigo Sequence or Transaction targeted  (Syntax: "<project>.<sequence>" or "<project>.<connector>.<transaction>")
      * @param parameters: Object - Contains c8o variables as key/value pair in the Map
-     * @return A promise that can deliver the JSON response
+     * @returns Promise<any>
      */
     public callJson(requestable: string, parameters: any): Promise<any> {
         return C8oR.callJson(requestable, parameters);

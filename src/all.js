@@ -6,4 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./c8o"));
 __export(require("./c8oSettings"));
 __export(require("./c8oLogLevel"));
+__export(require("./c8oLogger"));
 //# sourceMappingURL=all.js.map
