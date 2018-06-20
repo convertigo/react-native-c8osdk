@@ -101,6 +101,8 @@ public abstract class JsonConvert {
                 writableMap.putDouble(key, jsonObject.getDouble(key));
             } else if (value instanceof Number) {
                 writableMap.putInt(key, jsonObject.getInt(key));
+            } else if (value instanceof Boolean) {
+                writableMap.putBoolean(key, jsonObject.getBoolean(key));
             } else if (value instanceof String) {
                 writableMap.putString(key, jsonObject.getString(key));
             } else if (value instanceof JSONObject) {

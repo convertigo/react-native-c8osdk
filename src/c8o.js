@@ -9,17 +9,30 @@ var C8o = (function () {
     function C8o() {
         this._c8oManagerEmitter = new react_native_1.NativeEventEmitter(C8oReact);
         this.log = new c8oLogger_1.C8oLogger();
-        this.progress = new c8oPromise_1.C8oPromise(this);
+        this.suscriptionA = {};
     }
     C8o.prototype.init = function (endpoint, c8oSettings) {
-        var _this = this;
-        this._c8oManagerEmitter.addListener('progress', function (progressI) {
-            _this.progress.onProgress(progressI);
-        });
         return C8oR.init(endpoint, c8oSettings);
     };
     C8o.prototype.callJson = function (requestable, parameters) {
-        return C8oR.callJson(requestable, parameters);
+        var _this = this;
+        var promise = new c8oPromise_1.C8oPromise(this);
+        var autoCancel = !parameters["continuous"] && !parameters["__live"];
+        var uniqueID = "" + (new Date).getTime();
+        C8oR.callJson(requestable, parameters, uniqueID).then(function (response) {
+            promise.onResponse(response, 'progress-' + uniqueID);
+            if (autoCancel) {
+                _this.suscriptionA[uniqueID].remove();
+            }
+        })
+            .catch(function (err) {
+            promise.onFailure(err, 'progress-' + uniqueID);
+        });
+        this.suscriptionA[uniqueID] = this._c8oManagerEmitter.addListener('progress-' + uniqueID, function (progressI) {
+            promise.onProgress(progressI);
+        });
+        this._c8oManagerEmitter.remove;
+        return promise;
     };
     return C8o;
 }());

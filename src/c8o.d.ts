@@ -4,8 +4,8 @@ import { C8oLogger } from "./c8oLogger";
 export declare class C8o {
     private _c8oManagerEmitter;
     log: C8oLogger;
-    progress: C8oPromise<any>;
+    suscriptionA: Object;
     constructor();
     init(endpoint: string, c8oSettings?: C8oSettings): Promise<any>;
-    callJson(requestable: string, parameters: any): Promise<any>;
+    callJson(requestable: string, parameters: any): C8oPromise<any>;
 }

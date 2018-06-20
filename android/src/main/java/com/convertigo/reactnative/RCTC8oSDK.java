@@ -102,7 +102,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void callJson(String requestable, final ReadableMap JsObject, final Promise promise) throws JSONException {
+  public void callJson(String requestable, final ReadableMap JsObject, final String id, final Promise promise) throws JSONException {
       final Promise p = promise;
       final ReactApplicationContext ctx = this.context;
       c8o.callJson(requestable, JsonConvert.reactToJSON(JsObject))
@@ -110,6 +110,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
               @Override
               public C8oPromise<JSONObject> run(JSONObject jObject, Map<String, Object> parameters) throws Throwable {
                   // the jObject is available, the current code is executed in an another working thread
+                  Object jtR = JsonConvert.jsonToReact(jObject);
                   p.resolve(JsonConvert.jsonToReact(jObject));
                   return null;
               }
@@ -129,7 +130,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
                       Jprogress.put("raw", c8oProgress.getRaw());
 
                   ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                     .emit("progress", JsonConvert.jsonToReact(Jprogress));
+                     .emit("progress-"+id, JsonConvert.jsonToReact(Jprogress));
                   } catch (JSONException e) {
                       e.printStackTrace();
                   }

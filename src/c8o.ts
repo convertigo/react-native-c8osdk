@@ -15,11 +15,11 @@ const { C8oReact } = NativeModules;
 export class C8o {
     private _c8oManagerEmitter = new NativeEventEmitter(C8oReact);
     public log: C8oLogger;
-    public progress: C8oPromise<any>;
+    public suscriptionA : Object;
     
     constructor() {
         this.log = new C8oLogger();
-        this.progress =  new C8oPromise<any>(this);
+        this.suscriptionA = {};
     }
 
     /**
@@ -30,9 +30,6 @@ export class C8o {
      * @returns Promise<any>
      */
     public init(endpoint: string, c8oSettings?: C8oSettings): Promise<any> {
-        this._c8oManagerEmitter.addListener('progress',(progressI)=> {
-            this.progress.onProgress(progressI);
-        });
         return C8oR.init(endpoint, c8oSettings);
     }
 
@@ -43,8 +40,30 @@ export class C8o {
      * @param parameters: Object - Contains c8o variables as key/value pair in the Map
      * @returns Promise<any>
      */
-    public callJson(requestable: string, parameters: any): Promise<any> {
-        return C8oR.callJson(requestable, parameters);
+    public callJson(requestable: string, parameters: any): C8oPromise<any> {
+        // Declare a new C8oPromise
+        const promise: C8oPromise<any> = new C8oPromise<any>(this);
+        const autoCancel = !parameters["continuous"] && !parameters["__live"];
+        // Use a unique id
+        let uniqueID = "" + (new Date).getTime();
+        // Do the call 
+        C8oR.callJson(requestable, parameters, uniqueID).then((response)=>{
+            // resolve the response on the c8oPromise
+            promise.onResponse(response, 'progress-'+ uniqueID);
+            if(autoCancel){
+                this.suscriptionA[uniqueID].remove();
+            }
+        })
+        .catch((err)=>{
+            // reject the error on the c8oPromise
+            promise.onFailure(err, 'progress-'+uniqueID)
+        })
+        // Add a new Listener  for the progress
+        this.suscriptionA[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
+            promise.onProgress(progressI);
+        });
+        this._c8oManagerEmitter.remove
+        return promise;
     }
     
 }
