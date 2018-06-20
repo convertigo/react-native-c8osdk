@@ -83,6 +83,8 @@ Then for each platform:
 
 Add the following dependencies to your the target of your `Podfile`
 
+`use_frameworks!`
+
 `pod 'SwiftyJSON', '4.0.0'`
 
 `pod 'Alamofire', '4.7.2'`
