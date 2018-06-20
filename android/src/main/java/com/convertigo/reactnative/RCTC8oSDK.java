@@ -31,19 +31,19 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
     C8o c8o;
     ReactApplicationContext context;
 
-  public RCTC8oSDK(ReactApplicationContext reactContext) {
-      super(reactContext);
-      context = reactContext;
-  }
+    public RCTC8oSDK(ReactApplicationContext reactContext) {
+        super(reactContext);
+        context = reactContext;
+    }
 
-  @Override
-  public String getName() {
-    return "C8oReact";
-  }
+    @Override
+    public String getName() {
+        return "C8oReact";
+    }
 
 
-  @ReactMethod
-  public void init(final String endPoint, final ReadableMap JsSettings, Promise promise) throws JSONException {
+    @ReactMethod
+    public void init(final String endPoint, final ReadableMap JsSettings, Promise promise) throws JSONException {
       C8oSettings settings = new C8oSettings();
       if(JsSettings.toHashMap().get("_timeout") != null && (int)Math.round((Double)JsSettings.toHashMap().get("_timeout")) != -1){
         settings.setTimeout((int)Math.round((Double)JsSettings.toHashMap().get("_timeout")));
@@ -99,20 +99,22 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
       } catch (Exception e) {
           promise.reject("C8oReactError",e.getMessage());
       }
-  }
+    }
 
-  @ReactMethod
-  public void callJson(String requestable, final ReadableMap JsObject, final String id, final Promise p) throws JSONException {
+    @ReactMethod
+    public void callJson(String requestable, final ReadableMap JsObject, final String id, final Promise p) throws JSONException {
       final ReactApplicationContext ctx = this.context;
       c8o.callJson(requestable, JsonConvert.reactToJSON(JsObject))
           .thenUI(new C8oOnResponse<JSONObject>() {
               @Override
               public C8oPromise<JSONObject> run(JSONObject jObject, Map<String, Object> parameters) throws Throwable {
                   // the jObject is available, the current code is executed in an another working thread
+                  // if it is from live then emit an event
                   if(((HashMap)parameters).get("__fromLive") != null) {
                       ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                               .emit("live-" + id, JsonConvert.jsonToReact(jObject));
                   }
+                  //if it is not from live resolve normally
                   else {
                       p.resolve(JsonConvert.jsonToReact(jObject));
                   }
@@ -122,6 +124,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
           .progress(new C8oOnProgress() {
               @Override
               public void run(C8oProgress c8oProgress) {
+                  // Wrap c8oProgress properties into in a JSONObject
                   JSONObject Jprogress = new JSONObject();
                   try {
                       Jprogress.put("continuous", c8oProgress.isContinuous());
@@ -132,9 +135,11 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
                       Jprogress.put("status", c8oProgress.getStatus());
                       Jprogress.put("taskInfo", c8oProgress.getTaskInfo());
                       Jprogress.put("raw", c8oProgress.getRaw());
+                      Jprogress.put("description", c8oProgress.toString());
 
-                  ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                     .emit("progress-"+id, JsonConvert.jsonToReact(Jprogress));
+                      // emit a new Event with a progress id
+                      ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("progress-"+id, JsonConvert.jsonToReact(Jprogress));
                   } catch (JSONException e) {
                       e.printStackTrace();
                   }
@@ -143,10 +148,12 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
           .failUI(new C8oOnFail() {
               @Override
               public void run(Throwable throwable, Map<String, Object> parameters) {
+                  // Reject the error
                   p.reject("C8oReactError", throwable);
               }
           });
-  }
+    }
+    // Re Wrap logs
     @ReactMethod
     public void log(String message, Integer type, final Promise promise) throws JSONException {
       switch (type){
