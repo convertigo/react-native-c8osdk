@@ -18,6 +18,7 @@ var C8o = (function () {
         var _this = this;
         var promise = new c8oPromise_1.C8oPromise(this);
         var autoCancel = !parameters["continuous"] && !parameters["__live"];
+        var live = parameters[C8o["FS_LIVE"]] != undefined;
         var uniqueID = "" + (new Date).getTime();
         C8oR.callJson(requestable, parameters, uniqueID).then(function (response) {
             promise.onResponse(response, 'progress-' + uniqueID);
@@ -31,9 +32,14 @@ var C8o = (function () {
         this.suscriptionA[uniqueID] = this._c8oManagerEmitter.addListener('progress-' + uniqueID, function (progressI) {
             promise.onProgress(progressI);
         });
-        this._c8oManagerEmitter.remove;
+        if (live) {
+            this._c8oManagerEmitter.addListener('live-' + uniqueID, function (progressI) {
+                promise.onResponse(progressI, { "__fromLive": "live-" + uniqueID });
+            });
+        }
         return promise;
     };
+    C8o.FS_LIVE = "__live";
     return C8o;
 }());
 exports.C8o = C8o;

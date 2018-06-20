@@ -109,7 +109,13 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
               @Override
               public C8oPromise<JSONObject> run(JSONObject jObject, Map<String, Object> parameters) throws Throwable {
                   // the jObject is available, the current code is executed in an another working thread
-                  p.resolve(JsonConvert.jsonToReact(jObject));
+                  if(((HashMap)parameters).get("__fromLive") != null) {
+                      ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                              .emit("live-" + id, JsonConvert.jsonToReact(jObject));
+                  }
+                  else {
+                      p.resolve(JsonConvert.jsonToReact(jObject));
+                  }
                   return null;
               }
           })

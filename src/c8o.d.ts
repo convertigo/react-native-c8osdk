@@ -5,6 +5,7 @@ export declare class C8o {
     private _c8oManagerEmitter;
     log: C8oLogger;
     suscriptionA: Object;
+    static FS_LIVE: string;
     constructor();
     init(endpoint: string, c8oSettings?: C8oSettings): Promise<any>;
     callJson(requestable: string, parameters: any): C8oPromise<any>;

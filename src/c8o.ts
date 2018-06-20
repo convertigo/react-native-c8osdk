@@ -17,6 +17,14 @@ export class C8o {
     public log: C8oLogger;
     public suscriptionA : Object;
     
+    /**
+     * Use it with "fs://" request as parameter to enable the live request feature.<br/>
+     * Must be followed by a string parameter, the 'liveid' that can be use to cancel the live
+     * request using c8o.cancelLive(liveid) method.<br/>
+     * A live request automatically recall the then or thenUI handler when the database changed.
+     */
+    public static FS_LIVE: string = "__live";
+
     constructor() {
         this.log = new C8oLogger();
         this.suscriptionA = {};
@@ -44,6 +52,7 @@ export class C8o {
         // Declare a new C8oPromise
         const promise: C8oPromise<any> = new C8oPromise<any>(this);
         const autoCancel = !parameters["continuous"] && !parameters["__live"];
+        const live = parameters[C8o["FS_LIVE"]] != undefined;
         // Use a unique id
         let uniqueID = "" + (new Date).getTime();
         // Do the call 
@@ -62,6 +71,12 @@ export class C8o {
         this.suscriptionA[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
             promise.onProgress(progressI);
         });
+        if(live){
+            this._c8oManagerEmitter.addListener('live-'+uniqueID,(progressI)=> {
+
+                promise.onResponse(progressI, {"__fromLive" :"live-" +uniqueID});
+            });
+        }
         return promise;
     }
     
