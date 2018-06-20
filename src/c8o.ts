@@ -56,13 +56,12 @@ export class C8o {
         })
         .catch((err)=>{
             // reject the error on the c8oPromise
-            promise.onFailure(err, 'progress-'+uniqueID)
+            promise.onFailure(err, 'progress-'+uniqueID);
         })
         // Add a new Listener  for the progress
         this.suscriptionA[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
             promise.onProgress(progressI);
         });
-        this._c8oManagerEmitter.remove
         return promise;
     }
     
