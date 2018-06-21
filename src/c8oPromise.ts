@@ -1,4 +1,6 @@
 import { C8o } from "react-native-c8osdk/src/c8o";
+import "rxjs";
+import "rxjs-compat";
 
 
 export class C8oPromise<T> {

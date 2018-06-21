@@ -2,7 +2,7 @@ import {C8oSettings} from "./c8oSettings";
 import {C8oPromise} from "./c8oPromise";
 import { Platform, NativeModules, NativeEventEmitter } from "react-native";
 import { C8oLogger } from "./c8oLogger";
-import {uuidv4} from "uuidv4";
+import * as uuidv4 from "uuidv4";
 
 var C8oR = NativeModules.C8oReact;
 const { C8oReact } = NativeModules;

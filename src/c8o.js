@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var c8oPromise_1 = require("./c8oPromise");
 var react_native_1 = require("react-native");
 var c8oLogger_1 = require("./c8oLogger");
-var uuidv4_1 = require("uuidv4");
+var uuidv4 = require("uuidv4");
 var C8oR = react_native_1.NativeModules.C8oReact;
 var C8oReact = react_native_1.NativeModules.C8oReact;
 var C8o = (function () {
@@ -26,7 +26,7 @@ var C8o = (function () {
             uniqueID = parameters[C8o["FS_LIVE"]];
         }
         else {
-            uniqueID = "" + uuidv4_1.uuidv4();
+            uniqueID = "" + uuidv4();
         }
         C8oR.callJson(requestable, parameters, uniqueID).then(function (response) {
             promise.onResponse(response, 'progress-' + uniqueID);

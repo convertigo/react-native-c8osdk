@@ -1,5 +1,6 @@
 import { C8o } from "react-native-c8osdk/src/c8o";
-import "rxjs/add/observable/fromPromise";
+import "rxjs";
+import "rxjs-compat";
 export declare class C8oPromise<T> {
     private c8o;
     private c8oResponse;
