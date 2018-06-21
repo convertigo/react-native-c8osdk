@@ -1,6 +1,6 @@
 {
   "name": "react-native-c8osdk",
-  "version": "1.0.5-beta1",
+  "version": "1.0.5-beta3",
   "description": "Use Convertigo MBaaS from React native apps",
   "main": "src/all.js",
   "typings": "src/all.d.ts",
@@ -45,7 +45,6 @@
     "typedoc-plugin-markdown": "^1.1.13"
   },
   "dependencies": {
-    "rxjs": "^6.2.1",
     "uuidv4": "^1.0.1"
   }
 }

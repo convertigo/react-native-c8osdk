@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+require("rxjs/add/observable/fromPromise");
 var C8oPromise = (function () {
     function C8oPromise(c8o) {
         this.c8o = c8o;

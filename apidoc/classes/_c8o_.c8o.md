@@ -21,7 +21,9 @@ To use it, you have to first initialize the C8o instance with the Convertigo end
 
 * [_c8oManagerEmitter](_c8o_.c8o.md#_c8omanageremitter)
 * [log](_c8o_.c8o.md#log)
-* [progress](_c8o_.c8o.md#progress)
+* [suscription](_c8o_.c8o.md#suscription)
+* [suscriptionLive](_c8o_.c8o.md#suscriptionlive)
+* [FS_LIVE](_c8o_.c8o.md#fs_live)
 
 ### Methods
 
@@ -58,11 +60,29 @@ ___
 **● log**: *[C8oLogger](_c8ologger_.c8ologger.md)*
 
 ___
-<a id="progress"></a>
+<a id="suscription"></a>
 
-###  progress
+###  suscription
 
-**● progress**: *[C8oPromise](_c8opromise_.c8opromise.md)<`any`>*
+**● suscription**: *`Object`*
+
+___
+<a id="suscriptionlive"></a>
+
+###  suscriptionLive
+
+**● suscriptionLive**: *`Object`*
+
+___
+<a id="fs_live"></a>
+
+### `<Static>` FS_LIVE
+
+**● FS_LIVE**: *`string`* = "__live"
+
+Use it with "fs://" request as parameter to enable the live request feature.  
+Must be followed by a string parameter, the 'liveid' that can be use to cancel the live request using c8o.cancelLive(liveid) method.  
+A live request automatically recall the then or thenUI handler when the database changed.
 
 ___
 
@@ -72,7 +92,7 @@ ___
 
 ###  callJson
 
-▸ **callJson**(requestable: *`string`*, parameters: *`any`*): `Promise`<`any`>
+▸ **callJson**(requestable: *`string`*, parameters: *`any`*): [C8oPromise](_c8opromise_.c8opromise.md)<`any`>
 
 Makes a c8o call with c8o requestable out of parameters, expecting a JSON response through a promise.
 
@@ -83,7 +103,7 @@ Makes a c8o call with c8o requestable out of parameters, expecting a JSON respon
 | requestable | `string` |  Contains the Convertigo Sequence or Transaction targeted (Syntax: "<project>.<sequence>" or "<project>.<connector>.<transaction>") |
 | parameters | `any` |
 
-**Returns:** `Promise`<`any`>
+**Returns:** [C8oPromise](_c8opromise_.c8opromise.md)<`any`>
 Promise<any>
 
 ___
