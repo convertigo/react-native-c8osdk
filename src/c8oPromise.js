@@ -2,22 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 require("rxjs");
 require("rxjs-compat");
-var C8oPromise = (function () {
-    function C8oPromise(c8o) {
+class C8oPromise {
+    constructor(c8o) {
         this.c8o = c8o;
     }
-    C8oPromise.prototype.async = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.then(function (response, parameters) {
+    async() {
+        return new Promise((resolve, reject) => {
+            this.then((response, parameters) => {
                 resolve(response);
                 return null;
-            }).fail(function (error, parameters) {
+            }).fail((error, parameters) => {
                 reject(error);
             });
         });
-    };
-    C8oPromise.prototype.then = function (c8oOnResponse) {
+    }
+    then(c8oOnResponse) {
         if (this.nextPromise != null) {
             return this.nextPromise.then(c8oOnResponse);
         }
@@ -33,8 +32,8 @@ var C8oPromise = (function () {
             }
             return this.nextPromise;
         }
-    };
-    C8oPromise.prototype.progress = function (c8oOnProgress) {
+    }
+    progress(c8oOnProgress) {
         if (this.nextPromise != null) {
             return this.nextPromise.progress(c8oOnProgress);
         }
@@ -43,8 +42,8 @@ var C8oPromise = (function () {
             this.nextPromise = new C8oPromise(this.c8o);
             return this.nextPromise;
         }
-    };
-    C8oPromise.prototype.fail = function (c8oOnFail) {
+    }
+    fail(c8oOnFail) {
         if (this.nextPromise != null) {
             return this.nextPromise.fail(c8oOnFail);
         }
@@ -56,15 +55,15 @@ var C8oPromise = (function () {
             }
             return this.nextPromise;
         }
-    };
-    C8oPromise.prototype._onResponse = function () {
+    }
+    _onResponse() {
         try {
             if (this.c8oResponse != null) {
-                var promise = new Array(0);
+                const promise = new Array(0);
                 promise.push(this.c8oResponse(this.lastResponse, this.lastParameters));
                 if (promise[0] != null) {
                     if (this.nextPromise != null) {
-                        var lastPromise = promise[0];
+                        let lastPromise = promise[0];
                         while (lastPromise.nextPromise != null) {
                             lastPromise = lastPromise.nextPromise;
                         }
@@ -85,8 +84,8 @@ var C8oPromise = (function () {
         catch (error) {
             this.onFailure(error, this.lastParameters);
         }
-    };
-    C8oPromise.prototype.onResponse = function (response, parameters) {
+    }
+    onResponse(response, parameters) {
         if ((this.lastResponse != null || this.lastResponse !== undefined) && parameters["__fromLive"] === undefined) {
             if (this.nextPromise != null || this.nextPromise !== undefined) {
                 this.nextPromise.onResponse(response, parameters);
@@ -97,16 +96,16 @@ var C8oPromise = (function () {
             this.lastParameters = parameters;
             this._onResponse();
         }
-    };
-    C8oPromise.prototype.onProgress = function (progress) {
+    }
+    onProgress(progress) {
         if (this.c8oProgress != null) {
             this.c8oProgress(progress);
         }
         else if (this.nextPromise != null) {
             this.nextPromise.onProgress(progress);
         }
-    };
-    C8oPromise.prototype.onFailure = function (error, parameters) {
+    }
+    onFailure(error, parameters) {
         this.lastFailure = error;
         this.lastParameters = parameters;
         if (this.c8oFail != null) {
@@ -115,8 +114,7 @@ var C8oPromise = (function () {
         if (this.nextPromise != null) {
             this.nextPromise.onFailure(this.lastFailure, parameters);
         }
-    };
-    return C8oPromise;
-}());
+    }
+}
 exports.C8oPromise = C8oPromise;
 //# sourceMappingURL=c8oPromise.js.map

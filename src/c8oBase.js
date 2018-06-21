@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var c8oLogLevel_1 = require("./c8oLogLevel");
-var C8oBase = (function () {
-    function C8oBase() {
+const c8oLogLevel_1 = require("./c8oLogLevel");
+class C8oBase {
+    constructor() {
         this._timeout = -1;
         this._trustAllCertificates = false;
         this._cookies = {};
@@ -18,112 +18,52 @@ var C8oBase = (function () {
         this._disableSSL = false;
         this._headers = {};
     }
-    Object.defineProperty(C8oBase.prototype, "timeout", {
-        get: function () {
-            return this._timeout;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "trustAllCertificates", {
-        get: function () {
-            return this._trustAllCertificates;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "cookies", {
-        get: function () {
-            return this._cookies;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "logRemote", {
-        get: function () {
-            return this._logRemote;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "logLevelLocal", {
-        get: function () {
-            return this._logLevelLocal;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "logC8o", {
-        get: function () {
-            return this._logC8o;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "defaultDatabaseName", {
-        get: function () {
-            return this._defaultDatabaseName;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "authenticationCookieValue", {
-        get: function () {
-            return this._authenticationCookieValue;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "fullSyncLocalSuffix", {
-        get: function () {
-            return this._fullSyncLocalSuffix;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "fullSyncServerUrl", {
-        get: function () {
-            return this._fullSyncServerUrl;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "fullSyncUsername", {
-        get: function () {
-            return this._fullSyncUsername;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "fullSyncPassword", {
-        get: function () {
-            return this._fullSyncPassword;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "logOnFail", {
-        get: function () {
-            return this._logOnFail;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "endpoint", {
-        get: function () {
-            return this._endpointSettings;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(C8oBase.prototype, "headers", {
-        get: function () {
-            return this._headers;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    C8oBase.prototype.copy = function (c8oBase) {
+    get timeout() {
+        return this._timeout;
+    }
+    get trustAllCertificates() {
+        return this._trustAllCertificates;
+    }
+    get cookies() {
+        return this._cookies;
+    }
+    get logRemote() {
+        return this._logRemote;
+    }
+    get logLevelLocal() {
+        return this._logLevelLocal;
+    }
+    get logC8o() {
+        return this._logC8o;
+    }
+    get defaultDatabaseName() {
+        return this._defaultDatabaseName;
+    }
+    get authenticationCookieValue() {
+        return this._authenticationCookieValue;
+    }
+    get fullSyncLocalSuffix() {
+        return this._fullSyncLocalSuffix;
+    }
+    get fullSyncServerUrl() {
+        return this._fullSyncServerUrl;
+    }
+    get fullSyncUsername() {
+        return this._fullSyncUsername;
+    }
+    get fullSyncPassword() {
+        return this._fullSyncPassword;
+    }
+    get logOnFail() {
+        return this._logOnFail;
+    }
+    get endpoint() {
+        return this._endpointSettings;
+    }
+    get headers() {
+        return this._headers;
+    }
+    copy(c8oBase) {
         if (c8oBase !== undefined) {
             this._timeout = c8oBase._timeout;
             this._trustAllCertificates = c8oBase._trustAllCertificates;
@@ -146,8 +86,7 @@ var C8oBase = (function () {
             this._fullSyncPassword = c8oBase.fullSyncPassword;
             this._headers = c8oBase._headers;
         }
-    };
-    return C8oBase;
-}());
+    }
+}
 exports.C8oBase = C8oBase;
 //# sourceMappingURL=c8oBase.js.map
