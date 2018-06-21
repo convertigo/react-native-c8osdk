@@ -2,6 +2,7 @@ import {C8oSettings} from "./c8oSettings";
 import {C8oPromise} from "./c8oPromise";
 import { Platform, NativeModules, NativeEventEmitter } from "react-native";
 import { C8oLogger } from "./c8oLogger";
+import {uuidv4} from "uuidv4";
 
 var C8oR = NativeModules.C8oReact;
 const { C8oReact } = NativeModules;
@@ -15,7 +16,8 @@ const { C8oReact } = NativeModules;
 export class C8o {
     private _c8oManagerEmitter = new NativeEventEmitter(C8oReact);
     public log: C8oLogger;
-    public suscriptionA : Object;
+    public suscription : Object;
+    public suscriptionLive: Object;
     
     /**
      * Use it with "fs://" request as parameter to enable the live request feature.<br/>
@@ -27,7 +29,8 @@ export class C8o {
 
     constructor() {
         this.log = new C8oLogger();
-        this.suscriptionA = {};
+        this.suscription = {};
+        this.suscriptionLive = {};
     }
 
     /**
@@ -51,16 +54,28 @@ export class C8o {
     public callJson(requestable: string, parameters: any): C8oPromise<any> {
         // Declare a new C8oPromise
         const promise: C8oPromise<any> = new C8oPromise<any>(this);
+        // Check if the call has to been autocanceled
         const autoCancel = !parameters["continuous"] && !parameters["__live"];
+        // Check if the call is LIVE
         const live = parameters[C8o["FS_LIVE"]] != undefined;
-        // Use a unique id
-        let uniqueID = "" + (new Date).getTime();
+        // Using a uniqueID in order to retrive any call's suscribtion and cancel it...
+        let uniqueID = null;
+        // if this request is live...
+        if(parameters[C8o["FS_LIVE"]] != undefined){
+            // Use the FS_LIVE id 
+            uniqueID = parameters[C8o["FS_LIVE"]];
+        }
+        else{
+            // generate an unique id 
+            uniqueID = "" + uuidv4();
+        }
         // Do the call 
         C8oR.callJson(requestable, parameters, uniqueID).then((response)=>{
             // resolve the response on the c8oPromise
             promise.onResponse(response, 'progress-'+ uniqueID);
             if(autoCancel){
-                this.suscriptionA[uniqueID].remove();
+                this.suscription[uniqueID].remove();
+                this.suscription[uniqueID].pop();
             }
         })
         .catch((err)=>{
@@ -68,12 +83,11 @@ export class C8o {
             promise.onFailure(err, 'progress-'+uniqueID);
         })
         // Add a new Listener  for the progress
-        this.suscriptionA[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
+        this.suscription[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
             promise.onProgress(progressI);
         });
         if(live){
-            this._c8oManagerEmitter.addListener('live-'+uniqueID,(progressI)=> {
-
+            this.suscriptionLive[uniqueID] = this._c8oManagerEmitter.addListener('live-'+uniqueID,(progressI)=> {
                 promise.onResponse(progressI, {"__fromLive" :"live-" +uniqueID});
             });
         }

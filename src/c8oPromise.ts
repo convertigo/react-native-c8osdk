@@ -1,4 +1,7 @@
 import { C8o } from "react-native-c8osdk/src/c8o";
+import "rxjs/add/observable/fromPromise";
+import { Observable } from "rxjs";
+
 
 export class C8oPromise<T> {
     private c8o: C8o;
@@ -14,7 +17,7 @@ export class C8oPromise<T> {
     constructor(c8o: C8o) {
         this.c8o = c8o;
     }
-
+    
     public async(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.then((response, parameters) => {
@@ -24,6 +27,10 @@ export class C8oPromise<T> {
                 reject(error);
             });
         });
+    }
+
+    public toObservable(): Observable<any> {
+        return Observable.fromPromise(this.async());
     }
 
     public then(c8oOnResponse: (response: T, parameters: Object) => C8oPromise<T>) {

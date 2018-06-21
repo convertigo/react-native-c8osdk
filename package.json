@@ -43,5 +43,9 @@
     "prettier": "^1.10.2",
     "typedoc": "^0.11.1",
     "typedoc-plugin-markdown": "^1.1.13"
+  },
+  "dependencies": {
+    "rxjs": "^6.2.1",
+    "uuidv4": "^1.0.1"
   }
 }
