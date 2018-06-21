@@ -175,7 +175,22 @@ The call method expects the requester string of the following syntax:
 The project name is optional, i.e. if not specified, the project specified in the endpoint will be used.
 ```javascript
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above, and '.login' is the name of a sequence of your project
-let result = await this.c8o.callJson('.login');
+
+// Here using Javascript's Promises with awaiter syntax 
+let result = await this.c8o.callJson('.login')
+                       .async();
+
+// Here using Javascript's Promises with then/catch syntax
+this.c8o.callJson(".login")
+    .then((response)=>{
+      //handle result
+    });
+
+// Using C8oPromise that allow for example progress and Live. C8oPromise is described in Api doc in section Api documentation of this README
+this.c8o.callJson(".login")
+    .then((response)=>{
+      //handle result
+    });
 ```
 
 ### Call parameters
@@ -184,10 +199,32 @@ Convertigo requestables generally needs key/value parameters encapsuled in a sim
 The key is always a string and the value can be any object but a string is the standard case.
 ```javascript
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above, and '.login' is the name of a sequence of your project
+
+// Here using Javascript's Promises with awaiter syntax
 let result = await this.c8o.callJson('.login', {
-                login: "barnett.christine",
-                password: "mySuperPassword123"
-            });
+                          login: "barnett.christine",
+                          password: "mySuperPassword123"
+                        })
+                        .async();
+
+// Here using Javascript's Promises with then/catch syntax
+this.c8o.callJson('.login', {
+    login: "barnett.christine",
+    password: "mySuperPassword123"
+  })
+  .async()
+  .then((response)=>{
+    // handle result
+  });
+
+// Using C8oPromise that allow for example progress and Live. C8oPromise is described in Api doc in section Api documentation of this README.
+this.c8o.callJson(".login",{
+      login: "barnett.christine",
+      password: "mySuperPassword123"
+    })
+    .then((response)=>{
+      //handle result
+    });
 ```
 
 ### Handling failures
@@ -197,15 +234,42 @@ The standard try/catch should be used to handle this.
 
 ```javascript
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above, and '.login' is the name of a sequence of your project
+
+// Here using Javascript's Promises with awaiter
 try{
   let result = await this.c8o.callJson('.login', {
                 login: "barnett.christine",
                 password: "mySuperPassword123"
-            });
+            }).async();
 }
 catch(error){
   // Do somthing with the error
 }
+
+// Here using Javascript's Promises
+this.c8o.callJson('.login', {
+                login: "barnett.christine",
+                password: "mySuperPassword123"
+            }).
+            .async()
+            .then((response)=>{
+              //handle result
+            })
+            .catch((error)=>{
+              // Do somthing with the error
+            })
+
+// Using C8oPromise that allow for example progress and Live. C8oPromise is described in Api doc in section Api documentation of this README.
+this.c8o.callJson('.login', {
+                login: "barnett.christine",
+                password: "mySuperPassword123"
+            }).
+            .then((response)=>{
+              //handle result
+            })
+            .fail((error)=>{
+              // Do somthing with the error
+            })
 ```
 
 ### Writing the device logs to the Convertigo server
@@ -294,17 +358,38 @@ FullSync has the ability to replicate mobile and Convertigo server databases ove
 The client SDK offers the progress event to monitor the replication progression thanks to a C8oProgress instance.
 
 ```javascript
-// Using the Native Event Emitter to fetch progress events
-this.c8o.progress.notifications((progress)=>{
-        // Do stuff with the progress notifications
-    });
-
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
-let result = await this.c8o.callJson('fs://base.replication_pull');
+
+// The progress can be handled only with C8oPromise
+this.c8o.callJson('fs://base.replication_pull')
+    .then((response)=>{
+      // Do stuff with response
+    })
+    .progress((progress)=>{
+      // Do stuff with progress
+    })
 ```
 
 ### Full Sync FS_LIVE requests
-* Not implemented yet
+ Full Sync has the ability to re-execute your fs:// calls if the database is modified. The then or thenUI following a FS_LIVE parameter is re-executed after each database update. Database update can be local modification or remote modification replicated.
+
+This allow you keep your UI synchronized with database documents.
+
+A FS_LIVE parameter must have a string value, its liveid. The liveid allow to cancel a FS_LIVE request.
+
+```javascript
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
+
+// The then of the live requests can be handled only with C8oPromise
+this.c8o.callJson("fs://base.view",{
+    "ddoc": "design",
+    "view": "customers",
+    C8o["FS_LIVE"]: "customers"
+    })
+    .then((response)=>{
+      // will be call now and after each database update
+    })
+```
 
 ## Api documentation
 * ["c8o"](apidoc/modules/_c8o_.md)
