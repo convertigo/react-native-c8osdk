@@ -15,7 +15,7 @@ export declare class C8oPromise<T> {
     then(c8oOnResponse: (response: T, parameters: Object) => C8oPromise<T>): any;
     progress(c8oOnProgress: (C8oProgress: any) => C8oPromise<T>): any;
     fail(c8oOnFail: (error: Error, parameters: Object) => C8oPromise<T>): any;
-    private _onResponse();
+    private _onResponse;
     onResponse(response: T, parameters: Object): void;
     onProgress(progress: any): void;
     onFailure(error: Error, parameters: Object): void;

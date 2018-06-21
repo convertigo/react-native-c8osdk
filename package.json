@@ -9,7 +9,11 @@
     "url": "https://github.com/convertigo/react-native-c8osdk"
   },
   "scripts": {
+    "prepare":"generate"
     "shipit": "np",
+    "generateTS": "tsc -p ./src/",
+    "generateFlow": "flowgen ./src/c8o.ts -o ./src/c8o.flow.js && flowgen ./src/c8oLogLevel.ts -o ./src/c8oLogLevel.flow.js && flowgen ./src/c8oSettings.ts -o ./src/c8oSettings.flow.js && flowgen ./src/c8oPromise.ts -o ./src/c8oPromise.flow.js && flowgen ./src/c8oLogger.ts -o ./src/c8oLogger.flow.js",
+    "generate": "generateTS && generateFlow && docs",
     "docs": "typedoc --theme markdown --mdEngine github --mdHideSources --module 'commonjs' --target 'ES5' --out ./apidoc/ ./src/"
   },
   "keywords": [
@@ -39,10 +43,12 @@
   ],
   "license": "Apache 2.0",
   "devDependencies": {
+    "flowgen": "^1.2.2",
     "np": "^2.16.0",
     "prettier": "^1.10.2",
     "typedoc": "^0.11.1",
-    "typedoc-plugin-markdown": "^1.1.13"
+    "typedoc-plugin-markdown": "^1.1.13",
+    "typescript": "^2.9.2"
   },
   "dependencies": {
     "rxjs": "^6.2.1",
