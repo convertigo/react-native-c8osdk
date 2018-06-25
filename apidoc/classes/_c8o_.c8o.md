@@ -20,6 +20,8 @@ To use it, you have to first initialize the C8o instance with the Convertigo end
 ### Properties
 
 * [_c8oManagerEmitter](_c8o_.c8o.md#_c8omanageremitter)
+* [internEmitter](_c8o_.c8o.md#internemitter)
+* [ios](_c8o_.c8o.md#ios)
 * [log](_c8o_.c8o.md#log)
 * [suscription](_c8o_.c8o.md#suscription)
 * [suscriptionLive](_c8o_.c8o.md#suscriptionlive)
@@ -51,6 +53,20 @@ ___
 ### `<Private>` _c8oManagerEmitter
 
 **● _c8oManagerEmitter**: *`any`* =  new NativeEventEmitter(C8oReact)
+
+___
+<a id="internemitter"></a>
+
+### `<Private>` internEmitter
+
+**● internEmitter**: *`any`*
+
+___
+<a id="ios"></a>
+
+### `<Private>` ios
+
+**● ios**: *`Boolean`*
 
 ___
 <a id="log"></a>

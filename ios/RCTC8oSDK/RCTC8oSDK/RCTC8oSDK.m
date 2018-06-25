@@ -164,13 +164,13 @@ RCT_REMAP_METHOD(callJson,
                 dict[@"value"] = ((C8oProgress *)((NSDictionary<NSString *, id> *) requestParameters)[@"__progress"]).dictionary;
                 [self sendEventWithName:@"ios" body: dict];
             }
-            else if([[requestParameters allKeys] containsObject:@"__progress"]){
-                // Then Live
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-                dict[@"name"] = [@"progress-" stringByAppendingString: ident];
-                dict[@"value"] = response;
-                [self sendEventWithName:@"ios" body: dict];
-            }
+        }
+        else if ([[requestParameters allKeys] containsObject:@"__fromLive"]) {
+            // In case of Live
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            dict[@"name"] = [@"live-" stringByAppendingString: ident];
+            dict[@"value"] = response;
+            [self sendEventWithName:@"ios" body: dict];
         }
         else {
             // Then
