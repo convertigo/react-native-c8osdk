@@ -3,6 +3,7 @@ import {C8oPromise} from "./c8oPromise";
 import { Platform, NativeModules, NativeEventEmitter } from "react-native";
 import { C8oLogger } from "./c8oLogger";
 import * as uuidv4 from "uuidv4";
+import * as EvtEMT from "eventemitter3";
 
 var C8oR = NativeModules.C8oReact;
 const { C8oReact } = NativeModules;
@@ -18,6 +19,8 @@ export class C8o {
     public log: C8oLogger;
     public suscription : Object;
     public suscriptionLive: Object;
+    private ios: Boolean;
+    private internEmitter;
     
     /**
      * Use it with "fs://" request as parameter to enable the live request feature.<br/>
@@ -31,6 +34,10 @@ export class C8o {
         this.log = new C8oLogger();
         this.suscription = {};
         this.suscriptionLive = {};
+        this.ios = Platform.OS === 'ios';
+        if(this.ios){
+            this.internEmitter = new EvtEMT();
+        }
     }
 
     /**
@@ -41,7 +48,20 @@ export class C8o {
      * @returns Promise<any>
      */
     public init(endpoint: string, c8oSettings?: C8oSettings): Promise<any> {
-        return C8oR.init(endpoint, c8oSettings);
+        return new Promise((resolve)=>{
+            C8oR.init(endpoint, c8oSettings)
+            .then(()=>{
+                if(this.ios){
+                    this._c8oManagerEmitter.addListener('ios',(eventIos)=>{
+                        this.log.debug("debug: " + JSON.stringify(eventIos));
+                        this.internEmitter.emit(eventIos['name'], eventIos['value']);
+                    });
+                }
+                else{
+                    resolve(true)
+                }
+            })
+        });
     }
 
     /**
@@ -73,7 +93,7 @@ export class C8o {
         C8oR.callJson(requestable, parameters, uniqueID).then((response)=>{
             // resolve the response on the c8oPromise
             promise.onResponse(response, 'progress-'+ uniqueID);
-            if(autoCancel){
+            if(autoCancel && !this.ios){
                 this.suscription[uniqueID].remove();
                 this.suscription[uniqueID].pop();
             }
@@ -83,13 +103,27 @@ export class C8o {
             promise.onFailure(err, 'progress-'+uniqueID);
         })
         // Add a new Listener  for the progress
-        this.suscription[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
-            promise.onProgress(progressI);
-        });
-        if(live){
-            this.suscriptionLive[uniqueID] = this._c8oManagerEmitter.addListener('live-'+uniqueID,(progressI)=> {
-                promise.onResponse(progressI, {"__fromLive" :"live-" +uniqueID});
+        if(this.ios){
+            this.internEmitter.on('progress-'+uniqueID, (resp)=>{
+                promise.onProgress(resp);
             });
+        }
+        else {
+            this.suscription[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
+                promise.onProgress(progressI);
+            });
+        }
+        if(live){
+            if(this.ios){
+                this.internEmitter.on('live-'+uniqueID, (resp)=>{
+                    promise.onResponse(resp, {"__fromLive" :"live-" +uniqueID});
+                });
+            }
+            else{
+                this.suscriptionLive[uniqueID] = this._c8oManagerEmitter.addListener('live-'+uniqueID,(progressI)=> {
+                    promise.onResponse(progressI, {"__fromLive" :"live-" +uniqueID});
+                });
+            }
         }
         return promise;
     }

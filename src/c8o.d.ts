@@ -6,6 +6,8 @@ export declare class C8o {
     log: C8oLogger;
     suscription: Object;
     suscriptionLive: Object;
+    private ios;
+    private internEmitter;
     static FS_LIVE: string;
     constructor();
     init(endpoint: string, c8oSettings?: C8oSettings): Promise<any>;

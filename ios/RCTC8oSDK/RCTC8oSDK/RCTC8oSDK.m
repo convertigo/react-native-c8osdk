@@ -41,7 +41,7 @@ RCT_EXPORT_MODULE(C8oReact);
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"progress"];
+    return @[@"ios"];
 }
 // Method Init
 RCT_REMAP_METHOD(init,
@@ -98,6 +98,9 @@ RCT_REMAP_METHOD(init,
             case 7:
                 logLevel = C8oLogLevelFatal;
                 break;
+            default:
+                logLevel = C8oLogLevelDebug;
+            break;
         }
         _C8oSettings = [_C8oSettings setLogLevelLocal:logLevel];
     }
@@ -138,27 +141,39 @@ RCT_REMAP_METHOD(init,
     // Aloc and init C8o
     _C8o = [C8o alloc];
     [_C8o initWithEndpoint:endpoint c8oSettings:_C8oSettings error:nil];
+    resolve(@"ok");
 }
 
 // Method CallJson
 RCT_REMAP_METHOD(callJson,
                  requestable:(NSString *)requestable
                  parameters:(NSDictionary *)parameters
+                 ident:(NSString *)ident
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     // Alloc
     _Resp = [C8oResponseJsonListener alloc];
     _Exep = [C8oExceptionListener alloc];
-    
-    //C8oResponseJsonListener.initOnJsonResponse
     [_Resp initOnJsonResponse:^(id _Nullable response, NSDictionary<NSString *,id> * _Nullable requestParameters) {
         if (response == nil || response == NULL || [response isEqual: [NSNull null]]) {
+            // Progress
             if ([[requestParameters allKeys] containsObject:@"__progress"]) {
-                [self sendEvent:((C8oProgress *)((NSDictionary<NSString *, id> *) requestParameters)[@"__progress"])];
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                dict[@"name"] = [@"progress-" stringByAppendingString: ident];
+                dict[@"value"] = ((C8oProgress *)((NSDictionary<NSString *, id> *) requestParameters)[@"__progress"]).dictionary;
+                [self sendEventWithName:@"ios" body: dict];
+            }
+            else if([[requestParameters allKeys] containsObject:@"__progress"]){
+                // Then Live
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                dict[@"name"] = [@"progress-" stringByAppendingString: ident];
+                dict[@"value"] = response;
+                [self sendEventWithName:@"ios" body: dict];
             }
         }
         else {
+            // Then
             resolve(response);
         }
     }];
@@ -207,13 +222,6 @@ RCT_REMAP_METHOD(log,
             //trace
             [[_C8o log]trace:message exceptions:nil];
             break;
-    }
-}
-
-- (void)sendEvent:(C8oProgress *)notification
-{
-    if (hasListeners) { // Only send events if anyone is listening
-        [self sendEventWithName:@"progress" body:@{@"name": @"c8o_progress", @"progress":notification.dictionary}];
     }
 }
 @end
