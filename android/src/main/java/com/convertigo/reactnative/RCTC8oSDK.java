@@ -45,8 +45,8 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
     @ReactMethod
     public void init(final String endPoint, final ReadableMap JsSettings, Promise promise) throws JSONException {
       C8oSettings settings = new C8oSettings();
-      if(JsSettings.toHashMap().get("_timeout") != null && (int)Math.round((Double)JsSettings.toHashMap().get("_timeout")) != -1){
-        settings.setTimeout((int)Math.round((Double)JsSettings.toHashMap().get("_timeout")));
+      if(JsSettings.toHashMap().get("_timeout") != null && (int)Math.round(Double.parseDouble(JsSettings.toHashMap().get("_timeout"))) != -1){
+        settings.setTimeout((int)Math.round(Double.parseDouble(JsSettings.toHashMap().get("_timeout"))));
       }
       if(JsSettings.toHashMap().get("_trustAllCertificates") != null){
         settings.setTrustAllCertificates((boolean)JsSettings.toHashMap().get("_trustAllCertificates"));
@@ -60,7 +60,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
         settings.setLogRemote((boolean)JsSettings.toHashMap().get("_logRemote"));
       }
       if(JsSettings.toHashMap().get("_logLevelLocal") != null){
-        settings.setLogLevelLocal((int)Math.round(((Double)((HashMap)JsSettings.toHashMap().get("_logLevelLocal")).values().toArray()[1])));
+        settings.setLogLevelLocal((int)Math.round((Double.parseDouble(((HashMap)JsSettings.toHashMap().get("_logLevelLocal"))).values().toArray()[1])));
       }
       if(JsSettings.toHashMap().get("_fullsyncUsername") != null){
           //TODO
