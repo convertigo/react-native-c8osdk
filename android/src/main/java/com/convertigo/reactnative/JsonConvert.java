@@ -6,6 +6,8 @@ package com.convertigo.reactnative;
  *
  * Modified by  YunJiang.Fang
  * Copyright (c) 2015, YunJiang.Fang
+ *
+ * Modified by Charles Grimont 2018
  */
 
 
@@ -96,7 +98,16 @@ public abstract class JsonConvert {
         Iterator iterator = jsonObject.keys();
         while(iterator.hasNext()) {
             String key = (String) iterator.next();
-            Object value = jsonObject.get(key);
+            Object value = null;
+            try{
+                value = jsonObject.get(key);
+            }
+            catch (JSONException e){
+                if(!e.getMessage().equals("No value for doc")){
+                    throw e;
+                }
+            }
+
             if (value instanceof Float || value instanceof Double) {
                 writableMap.putDouble(key, jsonObject.getDouble(key));
             } else if (value instanceof Number) {
@@ -109,7 +120,7 @@ public abstract class JsonConvert {
                 writableMap.putMap(key,jsonToReact(jsonObject.getJSONObject(key)));
             } else if (value instanceof JSONArray){
                 writableMap.putArray(key, jsonToReact(jsonObject.getJSONArray(key)));
-            } else if (value == JSONObject.NULL){
+            } else if (JSONObject.NULL.equals(value)){
                 writableMap.putNull(key);
             }
         }
@@ -131,7 +142,7 @@ public abstract class JsonConvert {
                 writableArray.pushMap(jsonToReact(jsonArray.getJSONObject(i)));
             } else if (value instanceof JSONArray){
                 writableArray.pushArray(jsonToReact(jsonArray.getJSONArray(i)));
-            } else if (value == JSONObject.NULL){
+            } else if (JSONObject.NULL.equals(value)){
                 writableArray.pushNull();
             }
         }
