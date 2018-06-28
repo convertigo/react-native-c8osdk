@@ -11,8 +11,8 @@ class C8o {
     constructor() {
         this._c8oManagerEmitter = new react_native_1.NativeEventEmitter(C8oReact);
         this.log = new c8oLogger_1.C8oLogger();
-        this.suscription = {};
-        this.suscriptionLive = {};
+        this.subscription = {};
+        this.subscriptionLive = {};
         this.ios = react_native_1.Platform.OS === 'ios';
         if (this.ios) {
             this.internEmitter = new EvtEMT();
@@ -23,7 +23,7 @@ class C8o {
             C8oR.init(endpoint, c8oSettings)
                 .then(() => {
                 if (this.ios) {
-                    this._c8oManagerEmitter.addListener('ios', (eventIos) => {
+                    this.subscription["ios"] = this._c8oManagerEmitter.addListener('ios', (eventIos) => {
                         this.log.debug("debug: " + JSON.stringify(eventIos));
                         this.internEmitter.emit(eventIos['name'], eventIos['value']);
                     });
@@ -46,40 +46,49 @@ class C8o {
             uniqueID = "" + uuidv4();
         }
         C8oR.callJson(requestable, parameters, uniqueID).then((response) => {
-            promise.onResponse(response, 'progress-' + uniqueID);
             if (autoCancel) {
                 if (this.ios) {
                     this.internEmitter.removeListener(uniqueID);
                 }
                 else {
-                    this.suscription[uniqueID].remove();
+                    this.subscription[uniqueID].remove();
                 }
-                delete this.suscription[uniqueID];
+                delete this.subscription[uniqueID];
             }
+            promise.onResponse(response, 'progress-' + uniqueID);
         })
             .catch((err) => {
+            if (autoCancel) {
+                if (this.ios) {
+                    this.internEmitter.removeListener(uniqueID);
+                }
+                else {
+                    this.subscription[uniqueID].remove();
+                }
+                delete this.subscription[uniqueID];
+            }
             promise.onFailure(err, 'progress-' + uniqueID);
         });
         if (this.ios) {
-            this.suscription['progress-' + uniqueID] = true;
+            this.subscription['progress-' + uniqueID] = true;
             this.internEmitter.on('progress-' + uniqueID, (resp) => {
                 promise.onProgress(resp);
             });
         }
         else {
-            this.suscription[uniqueID] = this._c8oManagerEmitter.addListener('progress-' + uniqueID, (progressI) => {
+            this.subscription[uniqueID] = this._c8oManagerEmitter.addListener('progress-' + uniqueID, (progressI) => {
                 promise.onProgress(progressI);
             });
         }
         if (live) {
             if (this.ios) {
-                this.suscriptionLive['live-' + uniqueID] = true;
+                this.subscriptionLive['live-' + uniqueID] = true;
                 this.internEmitter.on('live-' + uniqueID, (resp) => {
                     promise.onResponse(resp, { "__fromLive": "live-" + uniqueID });
                 });
             }
             else {
-                this.suscriptionLive[uniqueID] = this._c8oManagerEmitter.addListener('live-' + uniqueID, (progressI) => {
+                this.subscriptionLive[uniqueID] = this._c8oManagerEmitter.addListener('live-' + uniqueID, (progressI) => {
                     promise.onResponse(progressI, { "__fromLive": "live-" + uniqueID });
                 });
             }
@@ -89,36 +98,48 @@ class C8o {
     cancelLive(id) {
         if (this.ios) {
             this.internEmitter.removeListener("live-" + id);
-            delete this.suscriptionLive["live-" + id];
+            delete this.subscriptionLive["live-" + id];
         }
         else {
-            if (this.suscriptionLive["live-" + id] != null) {
-                this.suscription["live-" + id].remove();
-                delete this.suscription["live-" + id];
+            if (this.subscriptionLive["live-" + id] != null) {
+                this.subscription["live-" + id].remove();
+                delete this.subscription["live-" + id];
             }
         }
         return C8oR.cancelLive(id);
     }
     removeAllSubscriptions() {
         if (this.ios) {
-            for (let sub in this.suscription) {
+            for (let sub in this.subscription) {
                 this.internEmitter.removeListener(sub);
-                delete this.suscription[sub];
+                delete this.subscription[sub];
             }
-            for (let sub in this.suscriptionLive) {
+            for (let sub in this.subscriptionLive) {
                 this.internEmitter.removeListener(sub);
-                delete this.suscriptionLive[sub];
+                delete this.subscriptionLive[sub];
             }
+            this.subscription['ios'].remove();
+            delete this.subscription['ios'];
         }
         else {
-            for (let sub in this.suscription) {
-                this.suscription[sub].remove();
-                delete this.suscription[sub];
+            for (let sub in this.subscription) {
+                this.subscription[sub].remove();
+                delete this.subscription[sub];
             }
-            for (let sub in this.suscriptionLive) {
-                this.suscriptionLive[sub].remove();
-                delete this.suscriptionLive[sub];
+            for (let sub in this.subscriptionLive) {
+                this.subscriptionLive[sub].remove();
+                delete this.subscriptionLive[sub];
             }
+        }
+    }
+    removeSpecificSubscriptions(id) {
+        if (this.ios) {
+            this.internEmitter.removeListener(id);
+            delete this.subscription[id];
+        }
+        else {
+            this.subscription[id].remove();
+            delete this.subscription[id];
         }
     }
 }

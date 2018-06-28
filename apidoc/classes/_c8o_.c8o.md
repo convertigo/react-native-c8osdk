@@ -23,14 +23,17 @@ To use it, you have to first initialize the C8o instance with the Convertigo end
 * [internEmitter](_c8o_.c8o.md#internemitter)
 * [ios](_c8o_.c8o.md#ios)
 * [log](_c8o_.c8o.md#log)
-* [suscription](_c8o_.c8o.md#suscription)
-* [suscriptionLive](_c8o_.c8o.md#suscriptionlive)
+* [subscription](_c8o_.c8o.md#subscription)
+* [subscriptionLive](_c8o_.c8o.md#subscriptionlive)
 * [FS_LIVE](_c8o_.c8o.md#fs_live)
 
 ### Methods
 
 * [callJson](_c8o_.c8o.md#calljson)
+* [cancelLive](_c8o_.c8o.md#cancellive)
 * [init](_c8o_.c8o.md#init)
+* [removeAllSubscriptions](_c8o_.c8o.md#removeallsubscriptions)
+* [removeSpecificSubscriptions](_c8o_.c8o.md#removespecificsubscriptions)
 
 ---
 
@@ -76,18 +79,18 @@ ___
 **● log**: *[C8oLogger](_c8ologger_.c8ologger.md)*
 
 ___
-<a id="suscription"></a>
+<a id="subscription"></a>
 
-###  suscription
+###  subscription
 
-**● suscription**: *`Object`*
+**● subscription**: *`Object`*
 
 ___
-<a id="suscriptionlive"></a>
+<a id="subscriptionlive"></a>
 
-###  suscriptionLive
+###  subscriptionLive
 
-**● suscriptionLive**: *`Object`*
+**● subscriptionLive**: *`Object`*
 
 ___
 <a id="fs_live"></a>
@@ -123,6 +126,24 @@ Makes a c8o call with c8o requestable out of parameters, expecting a JSON respon
 Promise<any>
 
 ___
+<a id="cancellive"></a>
+
+###  cancelLive
+
+▸ **cancelLive**(id: *`string`*): `Promise`<`any`>
+
+Allows you to cancel a live request and remove the subscription
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| id | `string` |  the id of the live request to cancel |
+
+**Returns:** `Promise`<`any`>
+Promise<any>
+
+___
 <a id="init"></a>
 
 ###  init
@@ -140,6 +161,34 @@ This method allow you to init your C8o Object, passing it an endpoint and a C8oS
 
 **Returns:** `Promise`<`any`>
 Promise<any>
+
+___
+<a id="removeallsubscriptions"></a>
+
+###  removeAllSubscriptions
+
+▸ **removeAllSubscriptions**(): `void`
+
+Allow you to remove all subscription in this instance. Must be call from componentWillUnmount method
+
+**Returns:** `void`
+
+___
+<a id="removespecificsubscriptions"></a>
+
+###  removeSpecificSubscriptions
+
+▸ **removeSpecificSubscriptions**(id: *`string`*): `void`
+
+Allow tou to remove a specific subscription in this instance.
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| id | `string` |  The id associated to the subscription |
+
+**Returns:** `void`
 
 ___
 

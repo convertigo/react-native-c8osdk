@@ -16,8 +16,8 @@ To use it, you have to first initialize the C8o instance with the Convertigo end
 */
 declare export class C8o {
     log: C8oLogger;
-    suscription: Object;
-    suscriptionLive: Object;
+    subscription: Object;
+    subscriptionLive: Object;
 
     /**
      * Use it with "fs://" request as parameter to enable the live request feature.<br/>
@@ -52,7 +52,13 @@ declare export class C8o {
     cancelLive(id: string): Promise<any>;
 
     /**
-     * Allow you to remove all subscription in this instance. Must be call before exit from a page..
+     * Allow you to remove all subscription in this instance. Must be call from componentWillUnmount method
      */
-    removeAllSubscriptions(): void
+    removeAllSubscriptions(): void;
+
+    /**
+     * Allow tou to remove a specific subscription in this instance.
+     * @param  The id associated to the subscription
+     */
+    removeSpecificSubscriptions(id: string): void
 }

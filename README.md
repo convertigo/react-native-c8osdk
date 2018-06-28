@@ -422,6 +422,7 @@ this.c8o.callJson("fs://base.view",{
       // catch errors
     });
 ```
+
 ### React specific constraints
 To Manage Progress, in react-native we are constraits to pass by Native Event Emitters. In iOS, we use [RCTEventEmitter](https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript), and in Android [RCTDeviceEventEmitter](https://facebook.github.io/react-native/docs/native-modules-android#sending-events-to-javascript).
 
@@ -441,7 +442,7 @@ componentWillUnmount() {
 }
 ```
 
-#### Advanced usage ####
+#### Advanced usage
 However if you need to manage by yourself event emitter life cycle
 
 * Simple calls eventEmitter's are automatically removed at the end of the progress process
