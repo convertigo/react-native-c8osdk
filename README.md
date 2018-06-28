@@ -5,7 +5,7 @@
 <p align="center">
   <a href="/LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
   <a href="https://www.npmjs.com/package/react-native-c8osdk"><img src="https://badge.fury.io/js/react-native-c8osdk.svg?style=flat-square" alt="NPM version"></a>
-</p>
+</p> 
 
 
 ## TOC
@@ -26,7 +26,11 @@
   - [Using the Local Cache](#using-the-local-cache)
   - [Using the Full Sync](#using-the-full-sync)
   - [Replicating Full Sync databases](#replicating-full-sync-databases)
-  - [Full Sync FS_LIVE requests](#full-sync-fs-live-requests)
+  - [Replicating Full Sync databases with continuous flag](#replicating-full-sync-databases-with-continuous-flag)
+  - [Full Sync FS_LIVE requests](#full-sync-fs_live-requests)
+  - [React specific constraints](#react-specific-constraints)
+    - [Basic usage](#basic-usage)
+    - [Advanced usage](#advanced-usage)
 - [Api documentation](#api-documentation)
 
 ## Introduction
