@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.convertigo.clientsdk.*;
 
 
+import com.convertigo.clientsdk.exception.C8oException;
 import com.facebook.react.bridge.*;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.*;
@@ -187,6 +188,18 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
               promise.resolve(true);
               break;
       }
+
+    }
+    // Cancel Live
+    @ReactMethod
+    public void cancelLive(String id, final Promise promise)  {
+        try{
+            this.c8o.cancelLive(id);
+            promise.resolve(true);
+        }
+        catch (C8oException e){
+            promise.reject(e.getMessage(), e);
+        }
 
     }
 }

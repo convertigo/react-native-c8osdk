@@ -127,4 +127,29 @@ export class C8o {
         }
         return promise;
     }
+
+    /**
+     * Allows you to cancel a live request and remove the subscription
+     * @param id the id of the live request to cancel
+     * @returns Promise<any>
+     */
+    public cancelLive(id: string): Promise<any>{
+        if(this.suscriptionLive["live-"+id] != null){
+            this.suscription["live-"+id].remove();
+            this.suscription["live-"+id].pop();
+        }
+        return C8oR.cancelLive(id);
+    }
+
+    /**
+     * Allow you to remove all subscription in this instance. Must be call before exit from a page..
+     */
+    public removeAllSubscriptions(){
+        for(let sub in this.suscription){
+            this.suscription[sub].remove();
+        }
+        for(let sub in this.suscriptionLive){
+            this.suscriptionLive[sub].remove();
+        }
+    }
 }

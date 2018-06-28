@@ -12,4 +12,6 @@ export declare class C8o {
     constructor();
     init(endpoint: string, c8oSettings?: C8oSettings): Promise<any>;
     callJson(requestable: string, parameters: any): C8oPromise<any>;
+    cancelLive(id: string): Promise<any>;
+    removeAllSubscriptions(): void;
 }

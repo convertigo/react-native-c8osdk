@@ -42,5 +42,17 @@ declare export class C8o {
      * @param  : Object - Contains c8o variables as key/value pair in the Map
      * @returns  Promise<any>
      */
-    callJson(requestable: string, parameters: any): C8oPromise<any >
+    callJson(requestable: string, parameters: any): C8oPromise<any>;
+
+    /**
+     * Allows you to cancel a live request and remove the subscription
+     * @param  the id of the live request to cancel
+     * @returns  Promise<any>
+     */
+    cancelLive(id: string): Promise<any>;
+
+    /**
+     * Allow you to remove all subscription in this instance. Must be call before exit from a page..
+     */
+    removeAllSubscriptions(): void
 }

@@ -79,6 +79,21 @@ class C8o {
         }
         return promise;
     }
+    cancelLive(id) {
+        if (this.suscriptionLive["live-" + id] != null) {
+            this.suscription["live-" + id].remove();
+            this.suscription["live-" + id].pop();
+        }
+        return C8oR.cancelLive(id);
+    }
+    removeAllSubscriptions() {
+        for (let sub in this.suscription) {
+            this.suscription[sub].remove();
+        }
+        for (let sub in this.suscriptionLive) {
+            this.suscriptionLive[sub].remove();
+        }
+    }
 }
 C8o.FS_LIVE = "__live";
 exports.C8o = C8o;
