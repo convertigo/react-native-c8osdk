@@ -224,5 +224,27 @@ RCT_REMAP_METHOD(log,
             break;
     }
 }
+
+// Cancel Live
+RCT_REMAP_METHOD(cancelLive,
+                 idstr:(NSString *)idstr
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError __autoreleasing  * _Nullable err = nil;
+        [_C8o cancelLive:idstr error:&err];
+        if(err != nil){
+            reject(@"react-native-c8osdk: can't cancel live",[NSString stringWithFormat:@"%li",(long)err.code], err);
+        }
+        else{
+            resolve(@"ok");
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+    }
+    
+}
 @end
 

@@ -47,15 +47,21 @@ class C8o {
         }
         C8oR.callJson(requestable, parameters, uniqueID).then((response) => {
             promise.onResponse(response, 'progress-' + uniqueID);
-            if (autoCancel && !this.ios) {
-                this.suscription[uniqueID].remove();
-                this.suscription[uniqueID].pop();
+            if (autoCancel) {
+                if (this.ios) {
+                    this.internEmitter.removeListener(uniqueID);
+                }
+                else {
+                    this.suscription[uniqueID].remove();
+                }
+                delete this.suscription[uniqueID];
             }
         })
             .catch((err) => {
             promise.onFailure(err, 'progress-' + uniqueID);
         });
         if (this.ios) {
+            this.suscription['progress-' + uniqueID] = true;
             this.internEmitter.on('progress-' + uniqueID, (resp) => {
                 promise.onProgress(resp);
             });
@@ -67,6 +73,7 @@ class C8o {
         }
         if (live) {
             if (this.ios) {
+                this.suscriptionLive['live-' + uniqueID] = true;
                 this.internEmitter.on('live-' + uniqueID, (resp) => {
                     promise.onResponse(resp, { "__fromLive": "live-" + uniqueID });
                 });
@@ -80,18 +87,38 @@ class C8o {
         return promise;
     }
     cancelLive(id) {
-        if (this.suscriptionLive["live-" + id] != null) {
-            this.suscription["live-" + id].remove();
-            this.suscription["live-" + id].pop();
+        if (this.ios) {
+            this.internEmitter.removeListener("live-" + id);
+            delete this.suscriptionLive["live-" + id];
+        }
+        else {
+            if (this.suscriptionLive["live-" + id] != null) {
+                this.suscription["live-" + id].remove();
+                delete this.suscription["live-" + id];
+            }
         }
         return C8oR.cancelLive(id);
     }
     removeAllSubscriptions() {
-        for (let sub in this.suscription) {
-            this.suscription[sub].remove();
+        if (this.ios) {
+            for (let sub in this.suscription) {
+                this.internEmitter.removeListener(sub);
+                delete this.suscription[sub];
+            }
+            for (let sub in this.suscriptionLive) {
+                this.internEmitter.removeListener(sub);
+                delete this.suscriptionLive[sub];
+            }
         }
-        for (let sub in this.suscriptionLive) {
-            this.suscriptionLive[sub].remove();
+        else {
+            for (let sub in this.suscription) {
+                this.suscription[sub].remove();
+                delete this.suscription[sub];
+            }
+            for (let sub in this.suscriptionLive) {
+                this.suscriptionLive[sub].remove();
+                delete this.suscriptionLive[sub];
+            }
         }
     }
 }

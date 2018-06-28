@@ -17,8 +17,8 @@ const { C8oReact } = NativeModules;
 export class C8o {
     private _c8oManagerEmitter = new NativeEventEmitter(C8oReact);
     public log: C8oLogger;
-    public suscription : Object;
-    public suscriptionLive: Object;
+    public subscription : Object;
+    public subscriptionLive: Object;
     private ios: Boolean;
     private internEmitter;
     
@@ -32,8 +32,8 @@ export class C8o {
 
     constructor() {
         this.log = new C8oLogger();
-        this.suscription = {};
-        this.suscriptionLive = {};
+        this.subscription = {};
+        this.subscriptionLive = {};
         this.ios = Platform.OS === 'ios';
         if(this.ios){
             this.internEmitter = new EvtEMT();
@@ -52,7 +52,7 @@ export class C8o {
             C8oR.init(endpoint, c8oSettings)
             .then(()=>{
                 if(this.ios){
-                    this._c8oManagerEmitter.addListener('ios',(eventIos)=>{
+                    this.subscription["ios"] = this._c8oManagerEmitter.addListener('ios',(eventIos)=>{
                         this.log.debug("debug: " + JSON.stringify(eventIos));
                         this.internEmitter.emit(eventIos['name'], eventIos['value']);
                     });
@@ -91,36 +91,52 @@ export class C8o {
         }
         // Do the call 
         C8oR.callJson(requestable, parameters, uniqueID).then((response)=>{
+            if(autoCancel){
+                if(this.ios){
+                    this.internEmitter.removeListener(uniqueID);
+                }
+                else{
+                    this.subscription[uniqueID].remove();
+                }
+                delete this.subscription[uniqueID];
+            }
             // resolve the response on the c8oPromise
             promise.onResponse(response, 'progress-'+ uniqueID);
-            if(autoCancel && !this.ios){
-                this.suscription[uniqueID].remove();
-                this.suscription[uniqueID].pop();
-            }
         })
         .catch((err)=>{
+            if(autoCancel){
+                if(this.ios){
+                    this.internEmitter.removeListener(uniqueID);
+                }
+                else{
+                    this.subscription[uniqueID].remove();
+                }
+                delete this.subscription[uniqueID];
+            }
             // reject the error on the c8oPromise
             promise.onFailure(err, 'progress-'+uniqueID);
         })
         // Add a new Listener  for the progress
         if(this.ios){
+            this.subscription['progress-'+uniqueID] = true;
             this.internEmitter.on('progress-'+uniqueID, (resp)=>{
                 promise.onProgress(resp);
             });
         }
         else {
-            this.suscription[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
+            this.subscription[uniqueID] = this._c8oManagerEmitter.addListener('progress-'+uniqueID,(progressI)=> {
                 promise.onProgress(progressI);
             });
         }
         if(live){
             if(this.ios){
+                this.subscriptionLive['live-'+uniqueID] = true;
                 this.internEmitter.on('live-'+uniqueID, (resp)=>{
                     promise.onResponse(resp, {"__fromLive" :"live-" +uniqueID});
                 });
             }
             else{
-                this.suscriptionLive[uniqueID] = this._c8oManagerEmitter.addListener('live-'+uniqueID,(progressI)=> {
+                this.subscriptionLive[uniqueID] = this._c8oManagerEmitter.addListener('live-'+uniqueID,(progressI)=> {
                     promise.onResponse(progressI, {"__fromLive" :"live-" +uniqueID});
                 });
             }
@@ -134,22 +150,59 @@ export class C8o {
      * @returns Promise<any>
      */
     public cancelLive(id: string): Promise<any>{
-        if(this.suscriptionLive["live-"+id] != null){
-            this.suscription["live-"+id].remove();
-            this.suscription["live-"+id].pop();
+        if(this.ios){
+            this.internEmitter.removeListener("live-" + id);
+            delete this.subscriptionLive["live-" + id];
+        }
+        else{
+            if(this.subscriptionLive["live-"+id] != null){
+                this.subscription["live-"+id].remove();
+                delete this.subscription["live-"+id];
+            }
         }
         return C8oR.cancelLive(id);
     }
 
     /**
-     * Allow you to remove all subscription in this instance. Must be call before exit from a page..
+     * Allow you to remove all subscription in this instance. Must be call from componentWillUnmount method
      */
     public removeAllSubscriptions(){
-        for(let sub in this.suscription){
-            this.suscription[sub].remove();
+        if(this.ios){
+            for(let sub in this.subscription){
+                this.internEmitter.removeListener(sub);
+                delete this.subscription[sub];
+            }
+            for(let sub in this.subscriptionLive){
+                this.internEmitter.removeListener(sub);
+                delete this.subscriptionLive[sub];
+            }
+            this.subscription['ios'].remove();
+            delete this.subscription['ios'];
         }
-        for(let sub in this.suscriptionLive){
-            this.suscriptionLive[sub].remove();
+        else{
+            for(let sub in this.subscription){
+                this.subscription[sub].remove();
+                delete this.subscription[sub];
+            }
+            for(let sub in this.subscriptionLive){
+                this.subscriptionLive[sub].remove();
+                delete this.subscriptionLive[sub];
+            }
+        }
+    }
+
+    /**
+     * Allow tou to remove a specific subscription in this instance.
+     * @param id The id associated to the subscription
+     */
+    public removeSpecificSubscriptions(id:string){
+        if(this.ios){
+            this.internEmitter.removeListener(id);
+            delete this.subscription[id];
+        }
+        else{
+            this.subscription[id].remove();
+            delete this.subscription[id];
         }
     }
 }

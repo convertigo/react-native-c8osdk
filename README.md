@@ -369,6 +369,29 @@ this.c8o.callJson('fs://base.replication_pull')
       // Do stuff with progress
     })
 ```
+### Replicating Full Sync databases with continuous flag ###
+As mentioned above, a replication can also be continuous: a new document is instantaneously replicated to the other side.
+
+Progress will be called at each entering replication during the all life of the application until that you explicitely cancel that one
+
+```javascript
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
+
+// The progress can be handled only with C8oPromise
+this.c8o.callJson('fs://base.replication_pull', {"continuous": true})
+    .then((response)=>{
+      // Do stuff with response
+    })
+    .progress((progress)=>{
+      // Do stuff with progress
+    })
+
+// this will cancel the previous replication
+this.c8o.callJson('fs://base.replication_pull', {"cancel": true})
+    .then((response)=>{
+      // Do stuff with response
+    })
+```
 
 ### Full Sync FS_LIVE requests
  Full Sync has the ability to re-execute your fs:// calls if the database is modified. The then or thenUI following a FS_LIVE parameter is re-executed after each database update. Database update can be local modification or remote modification replicated.
@@ -389,6 +412,61 @@ this.c8o.callJson("fs://base.view",{
     .then((response)=>{
       // will be call now and after each database update
     })
+
+    // cancel the previous FS_LIVE request, can be on application page change for example
+    this.c8o.cancelLive("customers")
+    .then(()=>{
+      // do stuff
+    }
+    .catch((err)=>{
+      // catch errors
+    });
+```
+### React specific constraints
+To Manage Progress, in react-native we are constraits to pass by Native Event Emitters. In iOS, we use [RCTEventEmitter](https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript), and in Android [RCTDeviceEventEmitter](https://facebook.github.io/react-native/docs/native-modules-android#sending-events-to-javascript).
+
+As we can declare dynamically events name in Android, each event are forwared directly to the adapted progress handler, whereas in iOS as we can't dynamically nammed an event, we are obliged to forward every event to a unique one: "iOS" and then dispatch from je javascript layers to the adapted progres handler.
+
+We have to manage event emitter and remove them when we can.
+
+#### Basic usage ####
+Basically you can let c8o do the job by simple applying the rule bellow
+
+We stronglly recomeded to call removeAllSubscriptions method of class c8o on componentWillUnmount page life cycle to properly remove all listeners.
+
+```javascript
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
+componentWillUnmount() {
+  this.c8o.removeAllSubscriptions()
+}
+```
+
+#### Advanced usage ####
+However if you need to manage by yourself event emitter life cycle
+
+* Simple calls eventEmitter's are automatically removed at the end of the progress process
+
+* Live calls eventEmitter's are removed when calling cancelLive method
+
+* Continuous calls eventEmitter's can be removed, as shown below
+```javascript
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
+let idCall1 = null;
+this.c8o.callJson("fs://base.sync",{
+      "ddoc": "design",
+      "view": "customers",
+      "continuous": true
+    })
+    .progress((progress)=>{
+      // do stuff with progress continuous
+    })
+    .then((response, id)=>{
+      // initial response and id
+      idCall1 = id;
+    });
+    
+    // This will remove subscription
+    this.c8o.removeSpecificSubscriptions(idCall1);
 ```
 
 ## Api documentation
