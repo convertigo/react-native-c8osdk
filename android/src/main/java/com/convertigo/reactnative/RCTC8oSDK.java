@@ -109,8 +109,17 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void callJson(String requestable, final ReadableMap JsObject, final String id, final Promise p) throws JSONException {
-      final ReactApplicationContext ctx = this.context;
-      c8o.callJson(requestable, JsonConvert.reactToJSON(JsObject))
+        // Get context
+        final ReactApplicationContext ctx = this.context;
+
+        // Get Params
+        JSONObject parameters = JsonConvert.reactToJSON(JsObject);
+
+        if(parameters.get("__localCache") != null){
+            Object myObj = parameters.get("__localcache");
+            parameters.remove("__localcache");
+        }
+        c8o.callJson(requestable, JsonConvert.reactToJSON(JsObject))
           .thenUI(new C8oOnResponse<JSONObject>() {
               @Override
               public C8oPromise<JSONObject> run(JSONObject jObject, Map<String, Object> parameters) throws Throwable {

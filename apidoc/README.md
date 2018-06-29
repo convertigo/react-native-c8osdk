@@ -25,7 +25,11 @@ TOC
     *   [Using the Local Cache](#using-the-local-cache)
     *   [Using the Full Sync](#using-the-full-sync)
     *   [Replicating Full Sync databases](#replicating-full-sync-databases)
-    *   [Full Sync FS_LIVE requests](#full-sync-fs-live-requests)
+    *   [Replicating Full Sync databases with continuous flag](#replicating-full-sync-databases-with-continuous-flag)
+    *   [Full Sync FS_LIVE requests](#full-sync-fs_live-requests)
+    *   [React specific constraints](#react-specific-constraints)
+        *   [Basic usage](#basic-usage)
+        *   [Advanced usage](#advanced-usage)
 *   [Api documentation](#api-documentation)
 
 Introduction
@@ -468,10 +472,12 @@ Api documentation
 * ["all"](modules/_all_.md)
 * ["c8o"](modules/_c8o_.md)
 * ["c8oBase"](modules/_c8obase_.md)
+* ["c8oLocalCache"](modules/_c8olocalcache_.md)
 * ["c8oLogLevel"](modules/_c8ologlevel_.md)
 * ["c8oLogger"](modules/_c8ologger_.md)
 * ["c8oPromise"](modules/_c8opromise_.md)
 * ["c8oSettings"](modules/_c8osettings_.md)
+* ["priority"](modules/_priority_.md)
 
 ---
 
