@@ -280,7 +280,52 @@ this.c8o.log.trace("hello logs ! (level trace)");
 
 ### Using the Local Cache
 
-*   Not implemented yet
+Sometimes we would like to use local cache on C8o calls and responses, in order to:
+
+*   save network traffic between the device and the server,
+*   be able to display data when the device is not connected to the network.
+
+The Local Cache feature allows to store locally on the device the responses to a C8o call, using the variables and their values as cache key.
+
+To use the Local Cache, add to a call a pair parameter of "__localCache" and a C8oLocalCache instance. The constructor of C8oLocalCache needs some parameters:
+
+*   C8oLocalCache.Priority (SERVER / LOCAL): defines whether the response should be retrieved from local cache or from Convertigo server when the device can access the network. When the device has no network access, the local cache response is used.
+*   ttl: defines the time to live of the cached response, in milliseconds. If no value is passed, the time to live is infinite.
+*   enabled: allows to enable or disable the local cache on a Convertigo requestable, default value is true.
+
+```javascript
+// Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
+
+// Return the response if is already know and less than 180 seconds else call the server
+this.c8o.callJson(".getSimpleData",
+            {
+              "__localCache": new C8oLocalCache(Priority.LOCAL, 180 * 1000)
+            })
+            .then((response)=>{
+              // Do stuff 
+            });
+
+// same sample but with parameters, also acting as cache keys
+this.c8o.callJson(".getSimpleData",
+            {
+              "firstname": "John",
+                  "lastname": "Doe",
+              "__localCache": new C8oLocalCache(Priority.LOCAL, 180 * 1000)
+            })
+            .then((response)=>{
+              // Do stuff 
+            });
+// make a standard network call with the server
+// but in case of offline move or network failure
+// return the response if is already know and less than 1 hour
+this.c8o.callJson(".getSimpleData",
+            {
+              "__localCache": new C8oLocalCache(Priority.SERVER, 3600 * 1000)
+            })
+            .then((response)=>{
+              // Do stuff 
+            });
+```
 
 ### Using the Full Sync
 
