@@ -115,11 +115,24 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
         // Get Params
         JSONObject parameters = JsonConvert.reactToJSON(JsObject);
 
-        if(parameters.get("__localCache") != null){
-            Object myObj = parameters.get("__localcache");
-            parameters.remove("__localcache");
+        try{
+            // Get the given localcache parameters
+            Object myObj = parameters.get("__localCache");
+            // Remove it from parameters
+            parameters.remove("__localCache");
+            // Create an Android C8oLocalCache Object from the js properties
+            C8oLocalCache localCache = new C8oLocalCache(Boolean.parseBoolean(((JSONObject)((JSONObject) myObj).get("priority")).get("isAvailable").toString()) == true ? C8oLocalCache.Priority.LOCAL : C8oLocalCache.Priority.SERVER, Long.parseLong(((JSONObject) myObj).get("ttl").toString()));
+            // Add it to parameters
+            parameters.put(C8oLocalCache.PARAM, localCache);
+
         }
-        c8o.callJson(requestable, JsonConvert.reactToJSON(JsObject))
+        catch (Exception e) {
+            // If there is not  localCache param, catch exception
+            Log.d("exception", e.toString());
+        }
+
+        // Do the call
+        c8o.callJson(requestable, parameters)
           .thenUI(new C8oOnResponse<JSONObject>() {
               @Override
               public C8oPromise<JSONObject> run(JSONObject jObject, Map<String, Object> parameters) throws Throwable {
