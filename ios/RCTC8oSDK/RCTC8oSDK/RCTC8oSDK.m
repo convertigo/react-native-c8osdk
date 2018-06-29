@@ -147,11 +147,30 @@ RCT_REMAP_METHOD(init,
 // Method CallJson
 RCT_REMAP_METHOD(callJson,
                  requestable:(NSString *)requestable
-                 parameters:(NSDictionary *)parameters
+                 params:(NSDictionary *)params
                  ident:(NSString *)ident
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+    // change parameters to NSMutableDictionary to allow us to manipulate the parameters
+    NSMutableDictionary *parameters = params;
+    // If local cache parameters is diffrent from nil
+    if(parameters[@"__localCache"] != nil){
+        // Get localCache value
+        NSMutableDictionary *dictObj = parameters[@"__localCache"];
+        // Delete Javascript localCache parameter from parameters
+        [parameters removeObjectForKey:@"__localCache"];
+        // Error object to allow C8oLocalCache init to throw
+        NSError __autoreleasing  * _Nullable err = nil;
+        // Alloc c8osdk c8oLocalCache object
+        C8oLocalCache *c8oLocalCache = [C8oLocalCache alloc];
+        // Init c8osdk C8oLocalCache object
+        c8oLocalCache = [c8oLocalCache initWithPriority:[NSNumber numberWithBool:dictObj[@"priority"][@"isAvailable"]] == true ? Priority.LOCAL: Priority.SERVER ttl:[dictObj[@"ttl"] integerValue] enabled:[NSNumber numberWithBool:dictObj[@"enabled"]] error:&err];
+        // If there is an error, throw it
+        if(err != nil){
+            reject(@"react-native-c8osdk: Local Cache priority cannot be null",[NSString stringWithFormat:@"%li",(long)err.code], err);
+        }
+    }
     // Alloc
     _Resp = [C8oResponseJsonListener alloc];
     _Exep = [C8oExceptionListener alloc];
