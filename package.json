@@ -9,6 +9,7 @@
     "url": "https://github.com/convertigo/react-native-c8osdk"
   },
   "scripts": {
+    "clean": "rimraf src/*.d.ts src/*.js src/*.js.map src/*.flow.js",
     "prepare": "npm run generate && npm run docs",
     "shipit": "np",
     "generateTS": "tsc -p ./src/",
@@ -46,6 +47,7 @@
     "flowgen": "^1.2.2",
     "np": "^2.16.0",
     "prettier": "^1.10.2",
+    "rimraf": "^2.6.2",
     "typedoc": "^0.11.1",
     "typedoc-plugin-markdown": "^1.1.13",
     "typescript": "^2.9.2"
