@@ -10,10 +10,10 @@
   },
   "scripts": {
     "clean": "rimraf src/*.d.ts src/*.js src/*.js.map src/*.flow.js",
-    "prepare": "npm run generate && npm run docs",
+    "prepare": "npm run clean && npm run generate && npm run docs",
     "shipit": "np",
     "generateTS": "tsc -p ./src/",
-    "generateFlow": "flowgen ./src/c8o.ts -o ./src/c8o.flow.js && flowgen ./src/c8oLogLevel.ts -o ./src/c8oLogLevel.flow.js && flowgen ./src/c8oSettings.ts -o ./src/c8oSettings.flow.js && flowgen ./src/c8oPromise.ts -o ./src/c8oPromise.flow.js && flowgen ./src/c8oLogger.ts -o ./src/c8oLogger.flow.js",
+    "generateFlow": "flowgen ./src/c8o.ts -o ./src/c8o.flow.js && flowgen ./src/c8oLogLevel.ts -o ./src/c8oLogLevel.flow.js && flowgen ./src/c8oSettings.ts -o ./src/c8oSettings.flow.js && flowgen ./src/c8oPromise.ts -o ./src/c8oPromise.flow.js && flowgen ./src/c8oLogger.ts -o ./src/c8oLogger.flow.js ./src/c8oLocalCache.ts -o ./src/c8oLocalCache.flow.js ./src/priority.ts -o ./src/priority.flow.js",
     "generate": "npm run generateTS && npm run generateFlow",
     "docs": "typedoc --theme markdown --mdEngine github --mdHideSources --module 'commonjs' --target 'es2015' --out ./apidoc/ ./src/"
   },
