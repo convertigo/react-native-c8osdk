@@ -121,7 +121,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
             // Remove it from parameters
             parameters.remove("__localCache");
             // Create an Android C8oLocalCache Object from the js properties
-            C8oLocalCache localCache = new C8oLocalCache(Boolean.parseBoolean(((JSONObject)((JSONObject) myObj).get("priority")).get("isAvailable").toString()) == true ? C8oLocalCache.Priority.LOCAL : C8oLocalCache.Priority.SERVER, Long.parseLong(((JSONObject) myObj).get("ttl").toString()));
+            C8oLocalCache localCache = new C8oLocalCache(Boolean.parseBoolean(((JSONObject)((JSONObject) myObj).get("priority")).get("isAvailable").toString()) == true ? C8oLocalCache.Priority.LOCAL : C8oLocalCache.Priority.SERVER, Long.parseLong(((JSONObject) myObj).get("ttl").toString()),Boolean.parseBoolean(((JSONObject) myObj).get("enabled").toString()));
             // Add it to parameters
             parameters.put(C8oLocalCache.PARAM, localCache);
 
