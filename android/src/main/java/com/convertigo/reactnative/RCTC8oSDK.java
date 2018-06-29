@@ -133,11 +133,11 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
 
         // Do the call
         c8o.callJson(requestable, parameters)
-          .thenUI(new C8oOnResponse<JSONObject>() {
+          .then(new C8oOnResponse<JSONObject>() {
               @Override
               public C8oPromise<JSONObject> run(JSONObject jObject, Map<String, Object> parameters) throws Throwable {
                   // the jObject is available, the current code is executed in an another working thread
-                  // if it is from live then emit an event
+                  // if it is sfrom live then emit an event
                   if(((HashMap)parameters).get("__fromLive") != null) {
                       ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                               .emit("live-" + id, JsonConvert.jsonToReact(jObject));
