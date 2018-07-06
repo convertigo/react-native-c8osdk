@@ -12,58 +12,6 @@
 		B764B74920CFFA4C001668A2 /* RCTC8oSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B764B74620CFFA4C001668A2 /* RCTC8oSDK.h */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B7A79F4820CFFE38005B05F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7A79F4320CFFE38005B05F6 /* C8oSDKiOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 627259C31ED31C38004A3769;
-			remoteInfo = C8oSDKiOS;
-		};
-		B7A79F4A20CFFE38005B05F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7A79F4320CFFE38005B05F6 /* C8oSDKiOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 627259C41ED31C38004A3769;
-			remoteInfo = C8oSDKiOSTests;
-		};
-		B7A79F5420CFFE3F005B05F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E2B3B9A8A7A9536A839115F6EEB5B444;
-			remoteInfo = AEXML;
-		};
-		B7A79F5620CFFE3F005B05F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A0940DA4AE141C78A55B778B6C785412;
-			remoteInfo = Alamofire;
-		};
-		B7A79F5820CFFE3F005B05F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 720B9CAACD3323FDE2CE2B8CB7DC3114;
-			remoteInfo = "Pods-C8oSDKiOS";
-		};
-		B7A79F5A20CFFE3F005B05F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E51C7280B80DED703FEEB23908B42DB;
-			remoteInfo = "Pods-C8oSDKiOSTests";
-		};
-		B7A79F5C20CFFE3F005B05F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DC078E9D36A3DC8E3E451AAC3C278922;
-			remoteInfo = SwiftyJSON;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		B764B74120CFFA4C001668A2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -82,8 +30,6 @@
 		B764B74320CFFA4C001668A2 /* libRCTC8oSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTC8oSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B764B74620CFFA4C001668A2 /* RCTC8oSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTC8oSDK.h; sourceTree = "<group>"; };
 		B764B74720CFFA4C001668A2 /* RCTC8oSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTC8oSDK.m; sourceTree = "<group>"; };
-		B7A79F4320CFFE38005B05F6 /* C8oSDKiOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = C8oSDKiOS.xcodeproj; path = "../../ios/c8osdk-ios/C8oSDKiOS.xcodeproj"; sourceTree = "<group>"; };
-		B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../../ios/c8osdk-ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +55,6 @@
 		B764B73A20CFFA4C001668A2 = {
 			isa = PBXGroup;
 			children = (
-				B7A79F2720CFFD9D005B05F6 /* Lib */,
 				B764B74520CFFA4C001668A2 /* RCTC8oSDK */,
 				B764B74420CFFA4C001668A2 /* Products */,
 				B70D3C8820D14CF700676327 /* Frameworks */,
@@ -131,36 +76,6 @@
 				B764B74720CFFA4C001668A2 /* RCTC8oSDK.m */,
 			);
 			path = RCTC8oSDK;
-			sourceTree = "<group>";
-		};
-		B7A79F2720CFFD9D005B05F6 /* Lib */ = {
-			isa = PBXGroup;
-			children = (
-				B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */,
-				B7A79F4320CFFE38005B05F6 /* C8oSDKiOS.xcodeproj */,
-			);
-			path = Lib;
-			sourceTree = "<group>";
-		};
-		B7A79F4420CFFE38005B05F6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B7A79F4920CFFE38005B05F6 /* C8o.framework */,
-				B7A79F4B20CFFE38005B05F6 /* C8oSDKiOSTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		B7A79F4D20CFFE3F005B05F6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B7A79F5520CFFE3F005B05F6 /* AEXML.framework */,
-				B7A79F5720CFFE3F005B05F6 /* Alamofire.framework */,
-				B7A79F5920CFFE3F005B05F6 /* Pods_C8oSDKiOS.framework */,
-				B7A79F5B20CFFE3F005B05F6 /* Pods_C8oSDKiOSTests.framework */,
-				B7A79F5D20CFFE3F005B05F6 /* SwiftyJSON.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,74 +122,12 @@
 			mainGroup = B764B73A20CFFA4C001668A2;
 			productRefGroup = B764B74420CFFA4C001668A2 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = B7A79F4420CFFE38005B05F6 /* Products */;
-					ProjectRef = B7A79F4320CFFE38005B05F6 /* C8oSDKiOS.xcodeproj */;
-				},
-				{
-					ProductGroup = B7A79F4D20CFFE3F005B05F6 /* Products */;
-					ProjectRef = B7A79F4C20CFFE3F005B05F6 /* Pods.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				B764B74220CFFA4C001668A2 /* RCTC8oSDK */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		B7A79F4920CFFE38005B05F6 /* C8o.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = C8o.framework;
-			remoteRef = B7A79F4820CFFE38005B05F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B7A79F4B20CFFE38005B05F6 /* C8oSDKiOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = C8oSDKiOSTests.xctest;
-			remoteRef = B7A79F4A20CFFE38005B05F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B7A79F5520CFFE3F005B05F6 /* AEXML.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AEXML.framework;
-			remoteRef = B7A79F5420CFFE3F005B05F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B7A79F5720CFFE3F005B05F6 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = B7A79F5620CFFE3F005B05F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B7A79F5920CFFE3F005B05F6 /* Pods_C8oSDKiOS.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Pods_C8oSDKiOS.framework;
-			remoteRef = B7A79F5820CFFE3F005B05F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B7A79F5B20CFFE3F005B05F6 /* Pods_C8oSDKiOSTests.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Pods_C8oSDKiOSTests.framework;
-			remoteRef = B7A79F5A20CFFE3F005B05F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B7A79F5D20CFFE3F005B05F6 /* SwiftyJSON.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyJSON.framework;
-			remoteRef = B7A79F5C20CFFE3F005B05F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B764B73F20CFFA4C001668A2 /* Sources */ = {
