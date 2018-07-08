@@ -128,7 +128,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
         }
         catch (Exception e) {
             // If there is not  localCache param, catch exception
-            Log.d("exception", e.toString());
+            //Log.d("exception", e.toString());
         }
 
         // Do the call
