@@ -211,6 +211,7 @@ let result = await this.c8o.callJson('.login')
 
 // Here using Javascript's Promises with then/catch syntax
 this.c8o.callJson(".login")
+    .async()
     .then((response)=>{
       //handle result
     });
