@@ -8,10 +8,12 @@
 </p> 
 
 
-## TOC
+## TOC ##
 
 - [TOC](#toc)
 - [Introduction](#introduction)
+  - [About SDKs](#about-sdks)
+  - [About Convertigo Platform](#about-convertigo-platform)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Linking](#linking)
@@ -33,7 +35,10 @@
     - [Advanced usage](#advanced-usage)
 - [Api documentation](#api-documentation)
 
-## Introduction
+## Introduction ##
+
+### About SDKs ###
+
 This is the Convertigo provider for React Native
 
 Convertigo Client SDK is a set of libraries used by mobile or Windows desktop applications to access Convertigo Server services. An application using the SDK can easily access Convertigo services such as Sequences and Transactions.
@@ -46,9 +51,29 @@ Client SDK is available for:
 * [React Native](https://github.com/convertigo/react-native-c8osdk) as a NPM package
 * [Google Angular framework](https://github.com/convertigo/c8osdk-angular) as typescript an NPM package
 * [Vue.js](https://github.com/convertigo/c8osdk-vuejs), [ReactJS](https://github.com/convertigo/c8osdk-vuejs), [AngularJS](https://github.com/convertigo/c8osdk-vuejs) Framework as a standard Javascript NPM package
-* Windows desktop or Xamarin apps as Nugets or Xamarin Components
+* [Windows desktop](https://github.com/convertigo/c8osdk-dotnet) or [Xamarin apps](https://github.com/convertigo/c8osdk-dotnet) as Nugets or Xamarin Components
 
-## Requirements
+This current package is the React Native SDK. For others SDKs see official [Convertigo Documentation.](https://www.convertigo.com/document/all/cmp-7/7-5-1/reference-manual/convertigo-mbaas-server/convertigo-client-sdk/programming-guide/)
+
+### About Convertigo Platform ###
+
+Convertigo Mobility Platform supports React Native developers. Services brought by the platform are available for React Native clients applications thanks to the Convertigo MBaaS SDK. SDK provides an React Native framework you can use to access Convertigo Server’s services such as:
+
+- Connectors to back-end data (SQL, NoSQL, REST/SOAP, SAP, - WEB HTML, AS/400, Mainframes)
+- Server Side Business Logic (Protocol transform, Business logic augmentation, ...)
+- Automatic offline replicated databases with FullSync technology
+- Security and access control (Identity managers, LDAP , SAML, oAuth)
+- Server side Cache
+- Push notifications (APND, GCM)
+- Auditing Analytics and logs (SQL, and Google Analytics)
+
+[Convertigo Technology Overview](http://download.convertigo.com/webrepository/Marketing/ConvertigoTechnologyOverview.pdf)
+
+[Access Convertigo mBaaS technical documentation](http://www.convertigo.com/document/latest/)
+
+[Access Convertigo SDK Documentations](https://www.convertigo.com/document/all/cmp-7/7-5-1/reference-manual/convertigo-mbaas-server/convertigo-client-sdk/)
+
+## Requirements ##
 
 * npm 6.1.x | yarn 1.7.x
 * react-native cli 2.0.x
@@ -58,7 +83,7 @@ Client SDK is available for:
 * Android
   * Android Studio 3.1.x
 
-## Installation
+## Installation ##
 
 Using npm:
 
@@ -126,14 +151,14 @@ Finnaly go to main's Project target => Build Phases => Link Binary with Librarie
 There is nothing more than the react-native cli link, mentioned above, to do for android
 </details>
 
-## Documentation
+## Documentation ##
 
-### Import libraries
+### Import libraries ###
 ```javascript
 import {C8oSettings, C8o, C8oLogLevel} from "react-native-c8osdk";
 ```
 
-### Initializing and creating a C8o instance for an Endpoint
+### Initializing and creating a C8o instance for an Endpoint ###
 C8o Object must first be instanciated and then can be initialized, with a endpoint string parameter
 ```javascript
 // Instanciate C8o
