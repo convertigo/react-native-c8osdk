@@ -23,8 +23,11 @@
   - [Advanced instance settings](#advanced-instance-settings)
   - [Calling a Convertigo requestable](#calling-a-convertigo-requestable)
   - [Call parameters](#call-parameters)
+  - [Chaining calls](#chaining-calls)
   - [Handling failures](#handling-failures)
   - [Writing the device logs to the Convertigo server](#writing-the-device-logs-to-the-convertigo-server)
+    - [Basic](#basic)
+    - [Advanced](#advanced)
   - [Using the Local Cache](#using-the-local-cache)
   - [Using the Full Sync](#using-the-full-sync)
   - [Replicating Full Sync databases](#replicating-full-sync-databases)
@@ -98,7 +101,7 @@ yarn add react-native-c8osdk
 ```
 
 
-## Linking
+## Linking ##
 
 
 ```shell
@@ -168,7 +171,7 @@ let c8o: C8o = new C8o();
 c8o.init("http://c8o-dev.convertigo.net:80/cems/projects/ClientSDKtestig");
 ```
 
-### Advanced instance settings
+### Advanced instance settings ###
 The endpoint is the mandatory setting to get a C8o instance, but there is additional settings through the C8oSettings class.
 
 A C8oSettings instance should be passed after the endpoint. Settings are copied inside the C8o instance.
@@ -194,7 +197,7 @@ let c8o: C8o = new C8o();
 c8o.init("http://c8o-dev.convertigo.net:80/cems/projects/ClientSDKtestig", settings);
 ```
 
-### Calling a Convertigo requestable
+### Calling a Convertigo requestable ###
 With a C8o instance you can call Convertigo Sequence and Transaction or make query to your local FullSync database.
 
 The call method expects the requester string of the following syntax:
@@ -223,7 +226,7 @@ this.c8o.callJson(".login")
     });
 ```
 
-### Call parameters
+### Call parameters ###
 Convertigo requestables generally needs key/value parameters encapsuled in a simple javascript object. 
 
 The key is always a string and the value can be any object but a string is the standard case.
@@ -256,14 +259,35 @@ this.c8o.callJson(".login",{
       //handle result
     });
 ```
+### Chaining calls ###
 
-### Handling failures
+The .then() returns a C8oPromise that can be use to chain other promise methods, such as .then() or failure handlers. The last .then() must return a null value. .then() can be mixed but the returning type must be the same: Xml or Json.
+
+```javascript
+c8o.callJson(".getSimpleData", "callNumber", 1)
+.then((response) => {
+	// you can do stuff here and return the next C8oPromise instead of deep nested blocks
+	return c8o.callJson(".getSimpleData", "callNumber", 2);
+})
+.then((response)=>{
+  // you can do stuff here and even modify previous parameters
+  parameters["callNumber"] = 3;
+  parameters["extraParameter"] = "ok";
+  return c8o.callJsonObject(".getSimpleData", parameters);
+})
+.then((response)=>{
+  // you can do stuff here and return null because this is the end of the chain
+  return null;
+})
+```
+
+### Handling failures ###
 A call can throw an error for many reasons: technical failure, network error and so on.
 
 The standard try/catch should be used to handle this.
 
 ```javascript
-// Assuming c8o is a C8o instance properly instanciated and initiated as describe above, and '.login' is the name of a sequence of your project
+// Assuming c8o is a C8o instance properly instantiated and initiated as describe above, and '.login' is the name of a sequence of your project
 
 // Here using Javascript's Promises with awaiter
 try{
@@ -273,7 +297,7 @@ try{
             }).async();
 }
 catch(error){
-  // Do somthing with the error
+  // Do something with the error
 }
 
 // Here using Javascript's Promises
@@ -286,7 +310,7 @@ this.c8o.callJson('.login', {
               //handle result
             })
             .catch((error)=>{
-              // Do somthing with the error
+              // Do something with the error
             })
 
 // Using C8oPromise that allow for example progress and Live. C8oPromise is described in Api doc in section Api documentation of this README.
@@ -298,11 +322,13 @@ this.c8o.callJson('.login', {
               //handle result
             })
             .fail((error)=>{
-              // Do somthing with the error
+              // Do something with the error
             })
 ```
 
-### Writing the device logs to the Convertigo server
+### Writing the device logs to the Convertigo server ###
+
+#### Basic ####
 
 An application developer usually adds log information in his code. This is useful for the code execution tracking, statistics or debugging.
 
@@ -323,13 +349,25 @@ A log level must be specified:
 ```javascript
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above
 
-this.c8o.log.fatal("hello logs ! (level fatal)");
-this.c8o.log.error("hello logs ! (level error)");
-this.c8o.log.warn("hello logs ! (level warn)");
-this.c8o.log.info("hello logs ! (level info)");
-this.c8o.log.debug("hello logs ! (level debug)");
-this.c8o.log.trace("hello logs ! (level trace)");
+c8o.log.fatal("hello logs ! (level fatal)");
+c8o.log.error("hello logs ! (level error)");
+c8o.log.warn("hello logs ! (level warn)");
+c8o.log.info("hello logs ! (level info)");
+c8o.log.debug("hello logs ! (level debug)");
+c8o.log.trace("hello logs ! (level trace)");
+```
 
+#### Advanced ####
+
+A C8oLogger have 2 log levels, one for local logging and the other for the remote logging. With the Android SDK, the local logging is set by the logcat options. With the .Net SDK, the local logging depends of the LogLevelLocal setting of C8oSettings.
+
+The remote logging level is enslaved by Convertigo server Log levels property: devices output logger. In case of failure, the remote logging is disabled and cannot be re-enabled for the current C8o instance. It can also be disabled using the LogRemote setting of C8oSettings, enabled with true (default) and disabled with false.
+
+```javascript
+C8oSettings()
+    .setLogC8o(false)   // disable log from the Convertigo Client SDK itself
+    .setLogRemote(false) // disable remote logging
+    .setLogLevelLocal(C8oLogLevel.TRACE);
 ```
 
 ### Using the Local Cache
