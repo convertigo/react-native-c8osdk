@@ -205,4 +205,35 @@ export class C8o {
             delete this.subscription[id];
         }
     }
+
+    /**
+     * Add a listener to monitor all changes of the 'db'.
+     *
+     * @param db the name of the fullsync database to monitor. Use the default database for a blank or a null value.
+     * @param uniqueID The uniqueID of this listener, usefull to cancel this opération.
+     */
+    public addFullSyncChangeListener(db: string, uniqueID: string): C8oPromise<any> {
+        // Declare a new C8oPromise
+        const promise: C8oPromise<any> = new C8oPromise<any>(this);
+        C8oR.addFullSyncChangeListener(db, uniqueID)
+        .then((resp)=>{
+            promise.onResponse(resp, uniqueID);
+        })
+        .catch((err)=>{
+            promise.onResponse(err, uniqueID);
+        });
+        // Add a new Listener for the change listener
+        if(this.ios){
+            this.subscription['change-'+uniqueID] = true;
+            this.internEmitter.on('change-'+uniqueID, (resp)=>{
+                promise.onProgress(resp);
+            });
+        }
+        else {
+            this.subscription[uniqueID] = this._c8oManagerEmitter.addListener('change-'+uniqueID,(progressI)=> {
+                promise.onProgress(progressI);
+            });
+        }
+        return promise;
+    }
 }

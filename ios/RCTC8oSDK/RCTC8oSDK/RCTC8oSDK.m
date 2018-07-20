@@ -16,6 +16,7 @@
 @property C8o *C8o;
 @property C8oResponseJsonListener *Resp;
 @property C8oExceptionListener *Exep;
+@property C8oFullSyncChangeListener *ChangeListener;
 @property C8oSettings *C8oSettings;
 @property NSString *Str;
 @end
@@ -265,5 +266,44 @@ RCT_REMAP_METHOD(cancelLive,
     }
     
 }
+
+// addFullSyncChangeListener
+RCT_REMAP_METHOD(addFullSyncChangeListener,
+                 database:(NSString *)database
+                 ident:(NSString *)ident
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Alloc
+        _ChangeListener = [C8oFullSyncChangeListener alloc];
+        
+        // Init ChangeListener 
+        [_ChangeListener initWithHandler:^(id _Nonnull changes) {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+            dict[@"name"] = [@"change-" stringByAppendingString: ident];
+            dict[@"value"] = changes;
+            [self sendEventWithName:@"ios" body: dict];
+        }];
+        // Init error handler
+        NSError __autoreleasing  * _Nullable err = nil;
+        
+        // Call method addFullSyncChangeListener
+        [_C8o addFullSyncChangeListener:database listener:_ChangeListener error:&err];
+        
+        // Check error
+        if(err != nil){
+            reject(@"react-native-c8osdk: error with addFullSyncChangeListener", [NSString stringWithFormat:@"%li",(long)err.code], err);
+        }
+        else{
+            resolve(@"ok");
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+    }
+    
+}
+
 @end
 
