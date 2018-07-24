@@ -28,6 +28,7 @@
   - [Replicating Full Sync databases](#replicating-full-sync-databases)
   - [Replicating Full Sync databases with continuous flag](#replicating-full-sync-databases-with-continuous-flag)
   - [Full Sync FS_LIVE requests](#full-sync-fs_live-requests)
+  - [Full Sync Change Listener](#full-sync-change-listener)
   - [React specific constraints](#react-specific-constraints)
     - [Basic usage](#basic-usage)
     - [Advanced usage](#advanced-usage)
@@ -471,7 +472,29 @@ this.c8o.callJson("fs://base.view",{
       // catch errors
     });
 ```
+### Full Sync Change Listener ###
+Full Sync has also the ability to notify your if there is any change on the database. The progress following a FS_LIVE parameter is triggered  after each database update. The changes contains the origin of the change, and other attributes :
+* isExternal
+* isCurrentRevision
+* isConflict
+* id
+* revisionId
+ 
+```javascript
+ this.c8o.addFullSyncChangeListener("databaseName", "anyID")
+         .progress((change)=>{
+           // triggered at each change on the given databaseName
+           this.c8o.log.debug("progress addFullSyncChangeListener");
+         })
+         .then((resp)=>{
+            //resp returns "ok" if the change listener has been correctly added
+         })
+         .fail((err)=>{
+           // Throw any error
+         })
 
+```
+ 
 ### React specific constraints
 To Manage Progress, in react-native we are constraits to pass by Native Event Emitters. In iOS, we use [RCTEventEmitter](https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript), and in Android [RCTDeviceEventEmitter](https://facebook.github.io/react-native/docs/native-modules-android#sending-events-to-javascript).
 
