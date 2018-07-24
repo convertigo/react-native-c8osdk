@@ -46,7 +46,7 @@ This is the Convertigo provider for React Native
 
 Convertigo Client SDK is a set of libraries used by mobile or Windows desktop applications to access Convertigo Server services. An application using the SDK can easily access Convertigo services such as Sequences and Transactions.
 
-The Client SDK will abstract the programmer from handling the communication protocols, local cache, FullSync off line data managment, UI thread management and remote logging. So the developer can focus on building the application.
+The Client SDK will abstract the programmer from handling the communication protocols, local cache, FullSync off line data management, UI thread management and remote logging. So the developer can focus on building the application.
 
 Client SDK is available for:
 * [Android Native](https://github.com/convertigo/c8osdk-android) apps as a standard Gradle dependency
@@ -419,7 +419,7 @@ this.c8o.callJson(".getSimpleData",
 ```
 
 
-### Using the Full Sync
+### Using the Full Sync ###
 Full Sync enables mobile apps to handle fully disconnected scenarios, still having data handled and controlled by back end business logic. See the presentation of the Full Sync architecture for more details.
 
 Convertigo Client SDK provides a high level access to local data following the standard Convertigo Sequence paradigm. They differ from standard sequences by a fs:// prefix. Calling these local Full Sync requestable will enable the app to read, write, query and delete data from the local database:
@@ -482,6 +482,7 @@ this.c8o.callJson('fs://base.replication_pull')
       // Do stuff with progress
     })
 ```
+
 ### Replicating Full Sync databases with continuous flag ###
 As mentioned above, a replication can also be continuous: a new document is instantaneously replicated to the other side.
 
