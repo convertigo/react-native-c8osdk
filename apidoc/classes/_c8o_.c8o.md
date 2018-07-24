@@ -29,6 +29,7 @@ To use it, you have to first initialize the C8o instance with the Convertigo end
 
 ### Methods
 
+* [addFullSyncChangeListener](_c8o_.c8o.md#addfullsyncchangelistener)
 * [callJson](_c8o_.c8o.md#calljson)
 * [cancelLive](_c8o_.c8o.md#cancellive)
 * [init](_c8o_.c8o.md#init)
@@ -107,6 +108,24 @@ ___
 
 ## Methods
 
+<a id="addfullsyncchangelistener"></a>
+
+###  addFullSyncChangeListener
+
+▸ **addFullSyncChangeListener**(db: *`string`*, uniqueID: *`string`*): [C8oPromise](_c8opromise_.c8opromise.md)<`any`>
+
+Add a listener to monitor all changes of the 'db'.
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| db | `string` |  the name of the fullsync database to monitor. Use the default database for a blank or a null value. |
+| uniqueID | `string` |  The uniqueID of this listener, usefull to cancel this opération. |
+
+**Returns:** [C8oPromise](_c8opromise_.c8opromise.md)<`any`>
+
+___
 <a id="calljson"></a>
 
 ###  callJson

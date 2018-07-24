@@ -212,6 +212,7 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
       }
 
     }
+
     // Cancel Live
     @ReactMethod
     public void cancelLive(String id, final Promise promise)  {
@@ -220,6 +221,32 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
             promise.resolve(true);
         }
         catch (C8oException e){
+            promise.reject(e.getMessage(), e);
+        }
+    }
+
+    // addFullSyncChangeListener
+    @ReactMethod
+    public void addFullSyncChangeListener(String database, final String id, final Promise promise)  {
+        try{
+            // Get context
+            final ReactApplicationContext ctx = this.context;
+
+            C8oFullSyncChangeListener c8oFullSyncChangeListener = new C8oFullSyncChangeListener() {
+                @Override
+                public void onChange(JSONObject changes) {
+                    // emit a new Event with a progress id
+                    try {
+                        ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                                .emit("change-"+id, JsonConvert.jsonToReact(changes));
+                    } catch (JSONException e) {
+                        promise.reject("C8oReactError", e);
+                    }
+                }
+            };
+            this.c8o.addFullSyncChangeListener(database, c8oFullSyncChangeListener);
+        }
+        catch (Exception e){
             promise.reject(e.getMessage(), e);
         }
 
