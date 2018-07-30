@@ -399,6 +399,14 @@ let resultPost = await this.c8o.callJson('fs://base.post', {
 let resultGet = await this.c8o.callJson('fs://base.get', {
               docid: resultPost['id']
           });
+
+// Add an attachment to this new document, here content is a base64 string
+let put_attachment = await this.c8o.callJson('fs://base.put_attachment', {
+              docid: resultPost['id'],
+              name: "myText.txt",
+              content_type: "text/plain",
+              content: "U2FsdXQgIQo="
+          });
 ```
 
 
