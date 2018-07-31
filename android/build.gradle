@@ -36,5 +36,5 @@ repositories {
 
 dependencies {
     compile "com.facebook.react:react-native:+"
-    compile "com.convertigo.sdk:c8oSDKAndroid:+"
+    compile "com.convertigo.sdk:c8oSDKAndroid:2.1.10"
 }
