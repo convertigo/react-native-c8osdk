@@ -37,6 +37,7 @@
   - [React specific constraints](#react-specific-constraints)
     - [Basic usage](#basic-usage)
     - [Advanced usage](#advanced-usage)
+- [Building react-native-c8osdk](#building-react-native-c8osdk)
 - [Api documentation](#api-documentation)
 
 ## Introduction ##
@@ -624,6 +625,12 @@ this.c8o.callJson("fs://base.sync",{
     // This will remove subscription
     this.c8o.removeSpecificSubscriptions(idCall1);
 ```
+
+
+## Building react-native-c8osdk ##
+
+(Not finished yet)
+Please see the [wiki page](https://github.com/convertigo/react-native-c8osdk/wiki)
 
 ## Api documentation
 * ["c8o"](apidoc/modules/_c8o_.md)
