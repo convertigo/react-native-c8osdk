@@ -479,17 +479,26 @@ FullSync has the ability to replicate mobile and Convertigo server databases ove
 
 The client SDK offers the progress event to monitor the replication progression thanks to a C8oProgress instance.
 
+A device cannot pull private documents or push any document without authentication. A session must be established before and the Convertigo server must authenticate the session (using the Set authenticated user step for example).
+
 ```javascript
 // Assuming c8o is a C8o instance properly instanciated and initiated as describe above.
 
-// The progress can be handled only with C8oPromise
-this.c8o.callJson('fs://base.replication_pull')
-    .then((response)=>{
-      // Do stuff with response
-    })
-    .progress((progress)=>{
-      // Do stuff with progress
-    })
+this.c8o.callJson('.login')
+.then((response)=>{
+    if(response == "ok"){
+      // The progress can be handled only with C8oPromise,
+      // replication_pull can also be sync or replication_push
+      this.c8o.callJson('fs://base.replication_pull')
+        .then((response)=>{
+          // Do stuff with response
+        })
+        .progress((progress)=>{
+          // Do stuff with progress
+        });
+    }
+});
+
 ```
 
 ### Replicating Full Sync databases with continuous flag ###
@@ -517,6 +526,7 @@ this.c8o.callJson('fs://base.replication_pull', {"cancel": true})
 ```
 
 ### Full Sync FS_LIVE requests
+
  Full Sync has the ability to re-execute your fs:// calls if the database is modified. The then or thenUI following a FS_LIVE parameter is re-executed after each database update. Database update can be local modification or remote modification replicated.
 
 This allow you keep your UI synchronized with database documents.
