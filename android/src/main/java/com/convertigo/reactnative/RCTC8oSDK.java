@@ -143,8 +143,10 @@ public class RCTC8oSDK extends ReactContextBaseJavaModule {
                               .emit("live-" + id, JsonConvert.jsonToReact(jObject));
                   }
                   //if it is not from live resolve normally
-                  else {
-                      p.resolve(JsonConvert.jsonToReact(jObject));
+                   else {
+                      //p.resolve(JsonConvert.jsonToReact(jObject));
+                      ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                              .emit("response-" + id, JsonConvert.jsonToReact(jObject));
                   }
                   return null;
               }
